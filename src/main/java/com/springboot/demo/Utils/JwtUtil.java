@@ -13,7 +13,7 @@ public class JwtUtil {
     private static final String SERCERT = "demo";
     private static String SERCERT_KEY = "";
     private static final String SUBJECT = "demo";
-    private static final Integer EXPIRE_TIME_MINUTE = 10;
+    private static final Integer EXPIRE_TIME_MINUTE = 30;
 
     static {
         SERCERT_KEY = Base64.getEncoder().encodeToString(SERCERT.getBytes());

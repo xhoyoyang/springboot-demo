@@ -7,6 +7,8 @@ import com.springboot.demo.rs.RsStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -34,11 +36,16 @@ public class LoginExpireHandler implements AuthenticationEntryPoint {
         if(e instanceof UsernameNotFoundException){
             LOGGER.info("user not found");
             rs=Rs.error(RsStatus.LOGIN_FAIL);
-            httpServletResponse.setStatus(HttpStatus.PAYMENT_REQUIRED.value());//402
+            //httpServletResponse.setStatus(HttpStatus.PAYMENT_REQUIRED.value());//402
+        }else if(e instanceof BadCredentialsException){
+            LOGGER.debug("Bad Credentials");
+            rs=Rs.error(RsStatus.Bad_Credentials);
+            //httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         }else {
             rs=Rs.error(RsStatus.UNAUTHORIZED);
-            httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            //httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
+        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         httpServletResponse.setContentType(Media.MEDIA_TYPE_JSON);
         PrintWriter out = httpServletResponse.getWriter();
         out.write(MAPPER.writeValueAsString(rs));

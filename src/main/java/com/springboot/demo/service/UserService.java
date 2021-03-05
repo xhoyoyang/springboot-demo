@@ -19,13 +19,13 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         if(userName.equals("admin")){
             Set<String> roles = new HashSet<>();
-            roles.add("admin");
-            roles.add("user");
+            roles.add("/user/test1");
+            roles.add("/user/test2");
             UserInfo userInfo = new UserInfo(1,userName,"",roles);
             return userInfo;
         }else if(userName.equals("user")){
             Set<String> roles = new HashSet<>();
-            roles.add("user");
+            roles.add("/user/test1");
             UserInfo userInfo = new UserInfo(1,userName,"",roles);
             return userInfo;
         }else {

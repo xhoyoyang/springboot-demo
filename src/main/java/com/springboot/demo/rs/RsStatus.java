@@ -5,15 +5,17 @@ public enum  RsStatus {
 
 
     OK(0,"success"),
-    ERROR(-1,"system error"),
-    LOGIN_FAIL(1,"login failed"),
+    LOGIN_FAIL(1,"login failed,please check the account or password"),
+    Bad_Credentials(2,"Bad Credentials"),
+    DATA_NOT_EXIST(3,"Bad Credentials"),
+    DATA_EXIST(4,"Bad Credentials"),
     BAD_REQUEST(400,"bad request,required request body is missing"),
     UNAUTHORIZED(401,"Unauthorized"),
     PAYMENT_REQUIRED(402,"Payment Required"),
     FORBIDDEN(403,"Forbidden"),
     NOT_FOUND(404,"Not Found"),
     METHOD_NOT_ALLOWED(404,"Method Not Allowed"),
-    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    ERROR(500, "Internal Server Error"),
     ;
 
 

@@ -1,11 +1,14 @@
 package com.springboot.demo.rs;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
 public class Rs<T> implements Serializable {
 
     private Integer code;
     private String msg;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public Rs(){
@@ -50,6 +53,11 @@ public class Rs<T> implements Serializable {
 
     public String getMsg() {
         return msg;
+    }
+
+    public Rs<T> setMsg(String msg) {
+        this.msg = msg;
+        return this;
     }
 
     public T getData() {

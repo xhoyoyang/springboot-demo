@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -33,12 +34,18 @@ public class AuthorityHandler {
 
             AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-            for (String url : urls) {
+            LOGGER.info("authorities:{}",authentication.getAuthorities());
+
+            if(((UserDetails) userInfo).getAuthorities().contains(new SimpleGrantedAuthority(request.getRequestURI()))){
+                isAllowed = true;
+            }
+
+            /*for (String url : urls) {
                 if (antPathMatcher.match(url, request.getRequestURI())) {
                     isAllowed = true;
                     break;
                 }
-            }
+            }*/
         }
 
         return  isAllowed;

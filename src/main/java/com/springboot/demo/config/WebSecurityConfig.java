@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()//无需验证的url
+            .antMatchers("/auth/**").permitAll()//无需认证的url
             //.antMatchers("/login").permitAll()
             //.antMatchers("/user/info").hasRole("admin")
             .anyRequest()
