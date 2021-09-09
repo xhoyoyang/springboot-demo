@@ -1,6 +1,8 @@
 package com.springboot.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.springboot.demo.annotation.Desensitization;
+import com.springboot.demo.enums.DesensitizationType;
 import com.springboot.demo.enums.UserTypeEnum;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ public class UserDo implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    @Desensitization(type = DesensitizationType.CHINESE_NAME)
     private String userName;
 
     private String userAccount;
@@ -23,6 +26,12 @@ public class UserDo implements Serializable {
 
     @TableField("user_type")
     private Integer userType;
+
+    @Desensitization(type = DesensitizationType.MOBILE_PHONE)
+    private String userMobile;
+
+    @Desensitization(type = DesensitizationType.EMAIL)
+    private String userEmail;
 
     private Date createTime;
 
@@ -69,6 +78,22 @@ public class UserDo implements Serializable {
 
     public void setUserType(Integer userType) {
         this.userType = userType;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public Date getCreateTime() {
