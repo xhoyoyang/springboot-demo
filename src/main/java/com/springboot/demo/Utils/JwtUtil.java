@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import com.springboot.demo.vo.UserInfo;
 
+import java.time.Duration;
 import java.util.*;
 
 public class JwtUtil {
@@ -13,7 +14,7 @@ public class JwtUtil {
     private static final String SERCERT = "demo";
     private static String SERCERT_KEY = "";
     private static final String SUBJECT = "demo";
-    private static final Integer EXPIRE_TIME_MINUTE = 30;
+    private static final long EXPIRE_TIME_MINUTE = 60*24;
 
     static {
         SERCERT_KEY = Base64.getEncoder().encodeToString(SERCERT.getBytes());
@@ -26,7 +27,7 @@ public class JwtUtil {
                 .claim("userName",userInfo.getUsername())
                 .claim("roles",userInfo.getAuthorities())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+(EXPIRE_TIME_MINUTE*60*1000)))
+                .setExpiration(new Date(System.currentTimeMillis()+ Duration.ofMinutes(EXPIRE_TIME_MINUTE).toMillis()))
                 .signWith(SignatureAlgorithm.HS256,SERCERT_KEY).compact();
         return token;
     }

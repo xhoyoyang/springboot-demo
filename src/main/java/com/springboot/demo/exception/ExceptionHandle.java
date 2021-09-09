@@ -2,13 +2,10 @@ package com.springboot.demo.exception;
 
 import com.springboot.demo.rs.Rs;
 import com.springboot.demo.rs.RsStatus;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
 import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +30,6 @@ public class ExceptionHandle {
     //参数校验,method params
     @ExceptionHandler({javax.validation.ValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-
     public Object validationException(ValidationException ex){
         ConstraintViolationException errors = (ConstraintViolationException)ex;
         Set<ConstraintViolation<?>> alidationvs = errors.getConstraintViolations();
