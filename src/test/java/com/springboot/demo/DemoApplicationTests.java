@@ -4,7 +4,6 @@ import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.UserDo;
 import com.springboot.demo.enums.UserTypeEnum;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +11,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
 import java.util.Date;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -21,6 +23,8 @@ class DemoApplicationTests {
 
     @Autowired
     private UserMapper userMapper;
+
+    private ThreadPoolExecutor pool = new ThreadPoolExecutor(10,10,0l, TimeUnit.SECONDS,new LinkedBlockingQueue<>());
 
     @Test
     void contextLoads() {
@@ -40,11 +44,22 @@ class DemoApplicationTests {
     }
 
     @Test
-    void createUserTest(){
-        UserDo user = new UserDo();
-        user.setUserAccount(DigestUtils.md5Hex(RandomUtils.nextInt()+""));
-        user.setUserTypeName(UserTypeEnum.admin);
-        userMapper.insert(user);
+    void createUserTest() throws InterruptedException {
+        while (true){
+            pool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    UserDo user = new UserDo();
+                    user.setUserAccount(new Date().getTime()+"");
+                    user.setUserTypeName(UserTypeEnum.admin);
+                    user.setUserName(new Date().getTime()+"");
+                    user.setUserMobile("15812345678");
+                    user.setUserEmail("123@qq.com");
+                    userMapper.insert(user);
+                }
+            });
+            Thread.sleep(5);
+        }
     }
 
     @Test

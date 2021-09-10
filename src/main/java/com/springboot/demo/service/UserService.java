@@ -1,6 +1,7 @@
 package com.springboot.demo.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.Utils.JwtUtil;
 import com.springboot.demo.controller.request.UserLoginRequest;
 import com.springboot.demo.dao.RoleMapper;
@@ -62,7 +63,7 @@ public class UserService implements UserDetailsService {
 
         //验证用户名密码
         QueryWrapper<UserDo> query = new QueryWrapper<>();
-        query.eq("user_name",user.getUsername());
+        query.eq("user_account",user.getUsername());
         query.eq("user_password", DigestUtils.md5Hex(user.getPassword()));
         UserDo userDo = userMapper.selectOne(query);
         if(null == userDo) throw new DataNotExistException("用户名或密码错误");
@@ -74,7 +75,11 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserDo> listByPage(){
-        return  userMapper.selectList(null);
+        //
+        QueryWrapper<UserDo> query = new QueryWrapper<>();
+        query.orderByDesc("id");
+        Page<UserDo> page = userMapper.selectPage(new Page<>(30000,10), query);
+        return page.getRecords();
     }
 
 
