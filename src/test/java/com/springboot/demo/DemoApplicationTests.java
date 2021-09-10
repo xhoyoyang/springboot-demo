@@ -79,4 +79,13 @@ class DemoApplicationTests {
         this.userMapper.updateById(user);
     }
 
+    @Test
+    void deleteUserTest(){
+
+        UserDo user = new UserDo();
+        user.setId(7);
+        userMapper.deleteById(7);
+
+    }
+
 }
