@@ -10,10 +10,9 @@ import com.springboot.demo.entity.UserDo;
 import com.springboot.demo.exception.DataNotExistException;
 import com.springboot.demo.exception.DataNotNullException;
 import com.springboot.demo.vo.UserInfo;
+import lombok.extern.java.Log;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,9 +25,8 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Log
 public class UserService implements UserDetailsService {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

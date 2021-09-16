@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  profiles:
+    active: dev
   application:
     name: springboot-demo
   datasource:
@@ -26,10 +28,11 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: always
 logging:
-  level:
-    com:
-      springboot:
-        demo: debug
+#  level:
+#    com:
+#      springboot:
+#        demo: debug
+  config: classpath:logback-spring.xml
 mybatis-plus:
   type-enums-package: com.springboot.demo
   global-config:
