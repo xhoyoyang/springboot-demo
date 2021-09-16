@@ -63,11 +63,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()//禁用csrf
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//禁用session
             .and()
-            .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+            //.addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()//无需认证的url
-            //.antMatchers("/login").permitAll()
-            //.antMatchers("/user/info").hasRole("admin")
+            .antMatchers("/auth/**",
+                    //"/swagger-ui.html",
+                    //"/swagger-ui/**",
+                    "/swagger-resources/**",
+                    "/v3/api-docs/**",
+                    "/doc.html",
+                    "/webjars/**"
+                    ).permitAll()//无需认证的url
             .anyRequest()
             .access("@authorityHandler.hasPermission(request,authentication)")//动态权限控制
             .and()
@@ -76,6 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
             .authenticationEntryPoint(loginExpireHandler)
             .accessDeniedHandler(accessDefindHandler)
+            .and().addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
             ;
 
     }

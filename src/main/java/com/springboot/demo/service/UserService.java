@@ -76,7 +76,7 @@ public class UserService implements UserDetailsService {
         //
         QueryWrapper<UserDo> query = new QueryWrapper<>();
         query.orderByDesc("id");
-        Page<UserDo> page = userMapper.selectPage(new Page<>(30000,10), query);
+        Page<UserDo> page = userMapper.selectPage(new Page<>(0,10), query);
         return page.getRecords();
     }
 
