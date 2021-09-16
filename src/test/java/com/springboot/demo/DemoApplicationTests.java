@@ -58,7 +58,7 @@ class DemoApplicationTests {
                     userMapper.insert(user);
                 }
             });
-            Thread.sleep(5);
+            Thread.sleep(2);
         }
     }
 
@@ -87,5 +87,6 @@ class DemoApplicationTests {
         userMapper.deleteById(7);
 
     }
+
 
 }
