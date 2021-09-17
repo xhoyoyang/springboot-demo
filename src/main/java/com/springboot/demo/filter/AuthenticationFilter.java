@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.springboot.demo.Constant.Media;
 import com.springboot.demo.Utils.JwtUtil;
-import com.springboot.demo.vo.UserInfo;
+import com.springboot.demo.entity.UserInfo;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.apache.commons.lang3.StringUtils;
