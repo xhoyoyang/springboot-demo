@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
         query.eq("user_password", DigestUtils.md5Hex(user.getPassword()));
         UserDo userDo = userMapper.selectOne(query);
         if(null == userDo) throw new DataNotExistException("用户名或密码错误");
-        //查询用户角色
+        //查询用户角色权限
         Set<String> roles = roleMapper.findUserRoleMenuByUserId(userDo.getId());
         UserInfo userInfo = new UserInfo(userDo.getId(),userDo.getUserName(),null,roles);
         return JwtUtil.generateToken(userInfo);
@@ -83,6 +83,9 @@ public class UserService implements UserDetailsService {
         page.getRecords().forEach(item->{
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(item,userVo);
+            //用户角色
+            List<String> roles = this.roleMapper.findRolesByUserId(userVo.getId());
+            userVo.setRoles(roles);
             users.add(userVo);
         });
         return users;

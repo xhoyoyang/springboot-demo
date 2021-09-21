@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -34,5 +35,7 @@ public class UserVo extends BaseVo {
     private Date updateTime;
 
     private Integer flag;
+
+    private List<String> roles;
 
 }
