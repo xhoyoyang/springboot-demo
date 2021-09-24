@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.springboot.demo.Constant.Media;
 import com.springboot.demo.Utils.JwtUtil;
-import com.springboot.demo.entity.UserInfo;
+import com.springboot.demo.controller.auth.UserInfo;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +32,8 @@ public class AuthenticationFilter extends GenericFilter {
             "/swagger-resources/**",
             "/v3/api-docs/**",
             "/doc.html",
-            "/webjars/**");
+            "/webjars/**",
+            "/favicon.ico");
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException,MalformedJwtException {
@@ -43,7 +44,7 @@ public class AuthenticationFilter extends GenericFilter {
         boolean isCheck  = true;
 
         for (String url : urls) {
-            if(new AntPathMatcher().match(url,request.getRequestURI())){
+            if(new AntPathMatcher().match(url,StringUtils.replaceOnce(request.getRequestURI(),request.getContextPath(),""))){
                 isCheck = false;
                 break;
             }

@@ -1,7 +1,7 @@
 package com.springboot.demo.handler;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class AuthorityHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AuthorityHandler.class);
-    private final static ObjectMapper MAPPER = new ObjectMapper();
 
     public boolean hasPermission(HttpServletRequest request ,Authentication authentication){
 
@@ -39,7 +38,7 @@ public class AuthorityHandler {
 
             LOGGER.info("authorities:{}",authentication.getAuthorities());
 
-            if(((UserDetails) userInfo).getAuthorities().contains(new SimpleGrantedAuthority(request.getRequestURI()))){
+            if(((UserDetails) userInfo).getAuthorities().contains(new SimpleGrantedAuthority(StringUtils.replaceOnce(request.getRequestURI(),request.getContextPath(),"")))){
                 isAllowed = true;
             }
 

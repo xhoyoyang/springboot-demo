@@ -71,7 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/swagger-resources/**",
                     "/v3/api-docs/**",
                     "/doc.html",
-                    "/webjars/**"
+                    "/webjars/**",
+                    "/favicon.ico"
                     ).permitAll()//无需认证的url
             .anyRequest()
             .access("@authorityHandler.hasPermission(request,authentication)")//动态权限控制

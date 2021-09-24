@@ -1,4 +1,4 @@
-package com.springboot.demo.entity;
+package com.springboot.demo.controller.auth;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import com.springboot.demo.entity.UserInfo;
+import com.springboot.demo.controller.auth.UserInfo;
 
 import java.time.Duration;
 import java.util.*;
