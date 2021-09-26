@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -20,19 +19,13 @@ public class UserVo extends BaseVo {
 
     private String userAccount;
 
-    private UserTypeEnum UserTypeName;
-
-    private Integer userType;
+    private UserTypeEnum userType;
 
     @Desensitization(type = DesensitizationType.MOBILE_PHONE)
     private String userMobile;
 
     @Desensitization(type = DesensitizationType.EMAIL)
     private String userEmail;
-
-    private Date createTime;
-
-    private Date updateTime;
 
     private Integer flag;
 

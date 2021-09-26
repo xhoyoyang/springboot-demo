@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -51,7 +52,7 @@ class DemoApplicationTests {
                 public void run() {
                     User user = new User();
                     user.setUserAccount(new Date().getTime()+"");
-                    user.setUserTypeName(UserTypeEnum.admin);
+                    user.setUserType(UserTypeEnum.admin);
                     user.setUserName(new Date().getTime()+"");
                     user.setUserMobile("15812345678");
                     user.setUserEmail("123@qq.com");
@@ -75,7 +76,7 @@ class DemoApplicationTests {
         //BeanUtils.copyProperties(userDo,user);
 
         user.setId(1);
-        user.setUserType(1);
+        user.setUserType(UserTypeEnum.user);
         this.userMapper.updateById(user);
     }
 
@@ -86,6 +87,21 @@ class DemoApplicationTests {
         user.setId(7);
         userMapper.deleteById(7);
 
+    }
+
+    @Test
+    void insertUsaer(){
+        User user = new User();
+        user.setUserName("lisi");
+        user.setUserAccount("lisi");
+        user.setUserType(UserTypeEnum.user);
+        user.setUserMobile("15812345678");
+        user.setUserEmail("12345@qq.com");
+        user.setCreateTime(LocalDateTime.now());
+        user.setCreateUser("test");
+        //user.setUpdateTime(LocalDateTime.now());
+        user.setUpdateUser("test");
+        this.userMapper.insert(user);
     }
 
 

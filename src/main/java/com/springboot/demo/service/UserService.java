@@ -84,7 +84,7 @@ public class UserService implements UserDetailsService {
         user.setId(request.getId());
         user.setUserName(request.getUserName());
         user.setUserMobile(request.getUserMobile());
-        user.setUserTypeName(request.getUserTypeName());
+        user.setUserType(request.getUserTypeName());
         user.setUserEmail(request.getUserEmail());
 
         userMapper.update(user,null);

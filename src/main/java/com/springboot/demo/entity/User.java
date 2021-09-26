@@ -15,10 +15,7 @@ public class User extends BaseEntity {
     private String userAccount;
 
     @TableField("user_type")
-    private UserTypeEnum UserTypeName;
-
-    @TableField("user_type")
-    private Integer userType;
+    private UserTypeEnum userType;
 
     private String userMobile;
 

@@ -4,7 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -16,10 +17,12 @@ public class BaseVo {
     private String createUser;
 
     @ApiModelProperty("创建时间")
-    private Date createTime;
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
-    private Date updateTime;
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalTime updateTime;
 
     @ApiModelProperty("更新人")
     private String updateUser;

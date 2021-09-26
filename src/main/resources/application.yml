@@ -30,6 +30,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: always
+    locale: zh_CN
 logging:
 #  level:
 #    com:
