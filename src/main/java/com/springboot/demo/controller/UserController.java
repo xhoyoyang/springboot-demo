@@ -8,7 +8,6 @@ import com.springboot.demo.rs.Rs;
 import com.springboot.demo.service.UserService;
 import com.springboot.demo.vo.UserVo;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户接口")
+@Api(tags = "用户管理")
 public class UserController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -34,7 +33,7 @@ public class UserController {
         return Rs.ok(page);
     }
 
-    @ApiModelProperty("新增用户")
+    @ApiOperation("新增用户")
     @PostMapping("/create")
     public Rs createUser(@Validated @RequestBody UserRequest request){
         this.userService.createUser(request);
@@ -55,7 +54,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @ApiModelProperty("删除用户")
+    @ApiOperation("删除用户")
     @GetMapping("/delete/{id}")
     public Rs deleteUser(@PathVariable("id") Integer id){
         this.userService.deleteUser(id);

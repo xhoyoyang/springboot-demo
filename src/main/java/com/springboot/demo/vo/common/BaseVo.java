@@ -22,7 +22,7 @@ public class BaseVo {
 
     @ApiModelProperty("更新时间")
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalTime updateTime;
+    private LocalDateTime updateTime;
 
     @ApiModelProperty("更新人")
     private String updateUser;

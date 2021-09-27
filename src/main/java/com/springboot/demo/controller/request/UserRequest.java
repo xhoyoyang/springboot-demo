@@ -15,7 +15,11 @@ import java.util.List;
 
 @Setter
 @Getter
-public class UserRequest extends BaseParams {
+public class UserRequest {
+
+    @ApiModelProperty(value = "id",required = true)
+    @NotBlank(message = "账号不能为空",groups = {Update.class})
+    private Integer id;
 
     @ApiModelProperty(value = "账号",required = true)
     @NotBlank(message = "账号不能为空",groups = {Create.class})
@@ -27,7 +31,7 @@ public class UserRequest extends BaseParams {
 
     @ApiModelProperty(value = "用户类型",required = true)
     @NotBlank(message = "用户类型为空",groups = {Create.class, Update.class})
-    private UserTypeEnum UserTypeName;
+    private UserTypeEnum UserType;
 
     @ApiModelProperty(value = "手机号",required = true)
     @NotBlank(message = "手机号不能为空",groups = {Create.class, Update.class})
