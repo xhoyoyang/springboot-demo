@@ -54,6 +54,7 @@ public class MenuService {
     public void deleteMenu(Integer id){
         //验证菜单是否存在
         //Menu menu = this.menuMapper.selectById(id);
+
         this.menuMapper.deleteById(id);
     }
 

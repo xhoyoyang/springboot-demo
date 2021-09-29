@@ -3,7 +3,6 @@ package com.springboot.demo.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.Utils.AuthorizationUtil;
 import com.springboot.demo.controller.request.UserListRequest;
 import com.springboot.demo.controller.request.UserRequest;
 import com.springboot.demo.dao.RoleMapper;
@@ -89,13 +88,7 @@ public class UserService implements UserDetailsService {
         //新增用户
         this.userMapper.insert(user);
         //新增用户角色
-        //List<UserRole> userRoles = new ArrayList<>(roles.size());
-        roles.forEach(role -> {
-            UserRole userRole = new UserRole();
-            userRole.setUserId(user.getId());
-            userRole.setRoleId(role.getId());
-            this.userRoleMapper.insert(userRole);
-        });
+        this.resetUserRole(roles,user.getId());
 
     }
 
@@ -118,13 +111,7 @@ public class UserService implements UserDetailsService {
         this.userMapper.updateById(user);
         //更新用户角色，先删除用户所有角色
         this.userRoleMapper.delete(new QueryWrapper<UserRole>().lambda().eq(UserRole::getUserId,user.getId()));
-        roles.forEach(role -> {
-            UserRole userRole = new UserRole();
-            userRole.setUserId(user.getId());
-            userRole.setRoleId(role.getId());
-            this.userRoleMapper.insert(userRole);
-        });
-        AuthorizationUtil.currentUser();
+        this.resetUserRole(roles,user.getId());
 
     }
 
@@ -135,6 +122,24 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void deleteUser(Integer userId){
         this.userMapper.deleteById(userId);
+    }
+
+
+    /**
+     * 重置用户角色
+     * @param roles
+     * @param userId
+     */
+    public void resetUserRole(List<Role> roles,Integer userId){
+
+        // TODO-XHY: 2021/9/29 批量新增
+        roles.forEach(role -> {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(role.getId());
+            this.userRoleMapper.insert(userRole);
+        });
+
     }
 
 

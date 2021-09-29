@@ -2,6 +2,7 @@ package com.springboot.demo.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.demo.entity.Role;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     @Select("select r.role_name from user_role u inner join role r on u.role_id = r.id where u.user_id = #{userId}")
     List<String> findRolesByUserId(Integer userId);
+
+    /**
+     * 根据角色ID删除角色的所有权限
+     * @param roleId
+     */
+    @Delete("DELETE from role_menu where role_id = #{roleId}")
+    void deletRoleMenuByRoleId(Integer roleId);
 
 
 }
