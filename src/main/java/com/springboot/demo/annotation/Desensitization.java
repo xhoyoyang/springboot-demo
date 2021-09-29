@@ -3,7 +3,7 @@ package com.springboot.demo.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.springboot.demo.enums.DesensitizationType;
+import com.springboot.demo.common.enums.DesensitizationType;
 import com.springboot.demo.serializer.DesensitizationSerializer;
 
 import java.lang.annotation.ElementType;

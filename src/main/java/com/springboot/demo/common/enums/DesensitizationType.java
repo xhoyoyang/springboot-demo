@@ -1,4 +1,4 @@
-package com.springboot.demo.enums;
+package com.springboot.demo.common.enums;
 
 public enum DesensitizationType {
 

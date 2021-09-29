@@ -2,7 +2,7 @@ package com.springboot.demo;
 
 import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
-import com.springboot.demo.enums.UserTypeEnum;
+import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.service.MenuService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;

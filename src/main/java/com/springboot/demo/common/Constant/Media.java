@@ -1,4 +1,4 @@
-package com.springboot.demo.Constant;
+package com.springboot.demo.common.Constant;
 
 public class Media {
 

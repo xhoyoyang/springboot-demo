@@ -1,7 +1,7 @@
 package com.springboot.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.springboot.demo.enums.UserTypeEnum;
+import com.springboot.demo.common.enums.UserTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

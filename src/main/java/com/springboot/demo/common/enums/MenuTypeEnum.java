@@ -1,14 +1,15 @@
-package com.springboot.demo.enums;
+package com.springboot.demo.common.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-public enum FlagEmun {
+public enum MenuTypeEnum {
 
-    t(1,"有效"),
-    f(0,"无效")
+    page(1,"页面，路由"),
+    api(2,"API接口"),
+    button(3,"按钮")
     ;
 
-    FlagEmun(Integer code, String name) {
+    MenuTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }

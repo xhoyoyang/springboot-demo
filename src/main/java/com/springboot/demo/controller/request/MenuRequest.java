@@ -1,7 +1,6 @@
 package com.springboot.demo.controller.request;
 
-import com.springboot.demo.enums.MenuTypeEnum;
-import com.springboot.demo.validate.Create;
+import com.springboot.demo.common.enums.MenuTypeEnum;
 import com.springboot.demo.validate.Update;
 import lombok.Getter;
 import lombok.Setter;

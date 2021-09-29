@@ -2,7 +2,7 @@ package com.springboot.demo.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.springboot.demo.Constant.Media;
+import com.springboot.demo.common.Constant.Media;
 import com.springboot.demo.Utils.JwtUtil;
 import com.springboot.demo.controller.auth.UserInfo;
 import io.jsonwebtoken.MalformedJwtException;

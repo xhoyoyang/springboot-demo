@@ -1,8 +1,8 @@
 package com.springboot.demo.vo;
 
 import com.springboot.demo.annotation.Desensitization;
-import com.springboot.demo.enums.DesensitizationType;
-import com.springboot.demo.enums.UserTypeEnum;
+import com.springboot.demo.common.enums.DesensitizationType;
+import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.vo.common.BaseVo;
 import lombok.Getter;
 import lombok.Setter;

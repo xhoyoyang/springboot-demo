@@ -1,6 +1,6 @@
 package com.springboot.demo.vo;
 
-import com.springboot.demo.enums.MenuTypeEnum;
+import com.springboot.demo.common.enums.MenuTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

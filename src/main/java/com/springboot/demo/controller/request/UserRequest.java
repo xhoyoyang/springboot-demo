@@ -1,6 +1,6 @@
 package com.springboot.demo.controller.request;
 
-import com.springboot.demo.enums.UserTypeEnum;
+import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.validate.Create;
 import com.springboot.demo.validate.Update;
 import io.swagger.annotations.ApiModelProperty;

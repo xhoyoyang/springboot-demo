@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.springboot.demo.Utils.DesensitizationUtil;
 import com.springboot.demo.annotation.Desensitization;
-import com.springboot.demo.enums.DesensitizationType;
+import com.springboot.demo.common.enums.DesensitizationType;
 
 import java.io.IOException;
 import java.util.Objects;
