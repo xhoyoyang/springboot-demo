@@ -1,6 +1,8 @@
 package com.springboot.demo.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.springboot.demo.controller.request.RoleListRequest;
 import com.springboot.demo.controller.request.RoleRequest;
 import com.springboot.demo.dao.MenuMapper;
 import com.springboot.demo.dao.RoleMapper;
@@ -12,6 +14,7 @@ import com.springboot.demo.entity.RoleMenu;
 import com.springboot.demo.entity.UserRole;
 import com.springboot.demo.exception.DataNotExistException;
 import com.springboot.demo.exception.DataNotNullException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,21 @@ public class RoleService {
 
     @Autowired
     private UserRoleMapper userRoleMapper;
+
+
+
+    public List<Role> listByPage(RoleListRequest request){
+
+        LambdaQueryWrapper<Role> query = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotBlank(request.getRoleName())){
+            query.like(Role::getRoleName,request.getRoleName());
+        }
+
+        Page<Role> page = this.roleMapper.selectPage(request.getPage(), query);
+
+        return page.getRecords();
+
+    }
 
 
     /**

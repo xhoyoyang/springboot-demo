@@ -28,7 +28,7 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation("分页查询用户信息")
-    @PostMapping("/list")
+    @PostMapping("/listPage")
     public Rs<Page<UserVo>> list(@Validated @RequestBody UserListRequest request){
         Page page = request.getPage();
         page.setRecords(userService.listByPage(request));

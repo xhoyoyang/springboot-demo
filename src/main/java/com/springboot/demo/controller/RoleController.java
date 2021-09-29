@@ -1,6 +1,8 @@
 package com.springboot.demo.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.springboot.demo.controller.request.RoleListRequest;
 import com.springboot.demo.controller.request.RoleRequest;
 import com.springboot.demo.rs.Rs;
 import com.springboot.demo.service.RoleService;
@@ -18,6 +20,17 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+
+    @ApiOperation("分页查询角色信息")
+    @PostMapping("/listPage")
+    public Rs listByPage(@Validated @RequestBody RoleListRequest request){
+
+        Page page = request.getPage();
+        page.setRecords(this.roleService.listByPage(request));
+
+        return Rs.ok(page);
+
+    }
 
 
     @ApiOperation("新增角色")
