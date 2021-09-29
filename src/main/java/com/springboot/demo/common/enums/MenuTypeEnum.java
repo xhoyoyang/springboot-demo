@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum MenuTypeEnum {
 
-    page(1,"页面，路由"),
-    api(2,"API接口"),
-    button(3,"按钮")
-    ;
+    page(1, "页面，路由"),
+    api(2, "API接口"),
+    button(3, "按钮");
 
     MenuTypeEnum(Integer code, String name) {
         this.code = code;
@@ -25,5 +24,15 @@ public enum MenuTypeEnum {
 
     public String getName() {
         return name;
+    }
+
+    public static MenuTypeEnum getByCode(String val) {
+        MenuTypeEnum[] vals = values();
+        for (MenuTypeEnum v : vals) {
+            if (v.getCode().equals(val)) {
+                return v;
+            }
+        }
+        return null;
     }
 }

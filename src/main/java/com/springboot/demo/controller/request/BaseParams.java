@@ -1,7 +1,7 @@
 package com.springboot.demo.controller.request;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.validate.Update;
+import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

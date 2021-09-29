@@ -1,8 +1,8 @@
 package com.springboot.demo.controller.request;
 
 import com.springboot.demo.common.enums.UserTypeEnum;
-import com.springboot.demo.validate.Create;
-import com.springboot.demo.validate.Update;
+import com.springboot.demo.validate.group.Create;
+import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

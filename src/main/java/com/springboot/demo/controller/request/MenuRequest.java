@@ -1,7 +1,8 @@
 package com.springboot.demo.controller.request;
 
 import com.springboot.demo.common.enums.MenuTypeEnum;
-import com.springboot.demo.validate.Update;
+import com.springboot.demo.validate.annotation.EnumValidAnnotation;
+import com.springboot.demo.validate.group.Update;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +20,9 @@ public class MenuRequest {
     private String menuName;
 
     @NotNull(message = "菜单类型不能为空")
+    @EnumValidAnnotation(target = MenuTypeEnum.class)
     private MenuTypeEnum menuType;
 
-    @NotNull(message = "url不能为空")
+    @NotBlank(message = "url不能为空")
     private String menuUrl;
 }

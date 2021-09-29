@@ -3,7 +3,7 @@ package com.springboot.demo.controller;
 import com.springboot.demo.controller.request.MenuRequest;
 import com.springboot.demo.rs.Rs;
 import com.springboot.demo.service.MenuService;
-import com.springboot.demo.validate.Update;
+import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class MenuController {
 
 
     @ApiOperation("新增菜单")
-    @GetMapping("/create")
+    @PostMapping("/create")
     public Rs createMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request){
 
         this.menuService.createMenu(request);
@@ -37,7 +37,7 @@ public class MenuController {
     }
 
     @ApiOperation("修改菜单")
-    @GetMapping("/update")
+    @PostMapping("/update")
     public Rs updateMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request){
 
         this.menuService.updateMenu(request);
