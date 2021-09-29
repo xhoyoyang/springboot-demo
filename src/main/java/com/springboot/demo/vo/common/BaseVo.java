@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -26,4 +25,7 @@ public class BaseVo {
 
     @ApiModelProperty("更新人")
     private String updateUser;
+
+    @ApiModelProperty("状态，1-有效，0-无效")
+    private Integer flag;
 }

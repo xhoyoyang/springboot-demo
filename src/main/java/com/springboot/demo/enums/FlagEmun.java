@@ -2,12 +2,13 @@ package com.springboot.demo.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-public enum UserTypeEnum {
+public enum FlagEmun {
 
-    admin(1,"管理员"),
-    user(2,"普通用户")
+    t(1,"有效"),
+    f(0,"无效")
     ;
-    UserTypeEnum(Integer code, String name) {
+
+    FlagEmun(Integer code, String name) {
         this.code = code;
         this.name = name;
     }

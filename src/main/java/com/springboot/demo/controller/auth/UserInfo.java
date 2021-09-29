@@ -1,5 +1,7 @@
 package com.springboot.demo.controller.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.springboot.demo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,39 +11,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserInfo implements UserDetails, Serializable {
+@JsonIgnoreProperties(value = {"authorities"},ignoreUnknown = true)
+public class UserInfo extends User implements UserDetails, Serializable {
 
-    private Integer id;
-    private String username;
-    private String password;
     private Set<String> roles;
 
     public UserInfo() {
 
-    }
-
-    public UserInfo(Integer id, String username, String password, Set<String> roles) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Set<String> getRoles() {
@@ -52,6 +28,7 @@ public class UserInfo implements UserDetails, Serializable {
         this.roles = roles;
     }
 
+    //授权信息
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities =new HashSet<>();
@@ -63,14 +40,16 @@ public class UserInfo implements UserDetails, Serializable {
         return authorities;
     }
 
+    //用户名
     @Override
     public String getUsername() {
-        return username;
+        return super.getUserName();
     }
 
+    //密码
     @Override
     public String getPassword() {
-        return password;
+        return super.getUserPassword();
     }
 
     //账号是否未过期
@@ -96,4 +75,6 @@ public class UserInfo implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

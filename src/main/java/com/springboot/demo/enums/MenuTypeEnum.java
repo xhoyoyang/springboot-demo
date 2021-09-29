@@ -2,12 +2,14 @@ package com.springboot.demo.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-public enum UserTypeEnum {
+public enum MenuTypeEnum {
 
-    admin(1,"管理员"),
-    user(2,"普通用户")
+    page(1,"页面，路由"),
+    api(2,"API接口"),
+    button(3,"按钮")
     ;
-    UserTypeEnum(Integer code, String name) {
+
+    MenuTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }

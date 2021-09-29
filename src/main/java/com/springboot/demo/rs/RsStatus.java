@@ -9,6 +9,7 @@ public enum  RsStatus {
     Bad_Credentials(2,"Bad Credentials"),
     DATA_NOT_EXIST(3,"Data not Exist"),
     DATA_EXIST(4,"Data is exist"),
+    DATA_NOt_NULL(4,"Data can not be null"),
     BAD_REQUEST(400,"bad request,required request body is missing"),
     UNAUTHORIZED(401,"Unauthorized"),
     PAYMENT_REQUIRED(402,"Payment Required"),

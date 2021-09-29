@@ -115,6 +115,13 @@
             </exclusions>
         </dependency>
 
+        <!-- 基础工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.7.13</version>
+        </dependency>
+
 
         <!-- test -->
         <dependency>

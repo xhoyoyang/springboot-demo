@@ -6,6 +6,8 @@ import com.springboot.demo.controller.request.UserListRequest;
 import com.springboot.demo.controller.request.UserRequest;
 import com.springboot.demo.rs.Rs;
 import com.springboot.demo.service.UserService;
+import com.springboot.demo.validate.Create;
+import com.springboot.demo.validate.Update;
 import com.springboot.demo.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +37,7 @@ public class UserController {
 
     @ApiOperation("新增用户")
     @PostMapping("/create")
-    public Rs createUser(@Validated @RequestBody UserRequest request){
+    public Rs createUser(@Validated(Create.class) @RequestBody UserRequest request){
         this.userService.createUser(request);
         return Rs.ok();
     }
@@ -44,7 +46,7 @@ public class UserController {
     @ApiOperation("修改用户信息")
     @PostMapping("/update")
     @Validated
-    public Rs updateUser(@RequestBody UserRequest request){
+    public Rs updateUser(@RequestBody @Validated(Update.class) UserRequest request){
         this.userService.updateUser(request);
         return Rs.ok();
     }

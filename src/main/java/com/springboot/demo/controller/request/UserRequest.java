@@ -1,6 +1,5 @@
 package com.springboot.demo.controller.request;
 
-import com.springboot.demo.entity.Role;
 import com.springboot.demo.enums.UserTypeEnum;
 import com.springboot.demo.validate.Create;
 import com.springboot.demo.validate.Update;
@@ -8,21 +7,20 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Setter
 @Getter
 public class UserRequest {
 
-    @ApiModelProperty(value = "id",required = true)
-    @NotBlank(message = "账号不能为空",groups = {Update.class})
+    @ApiModelProperty(value = "id,修改时不能为空",required = true)
+    @NotNull(message = "",groups = {Update.class})
     private Integer id;
 
     @ApiModelProperty(value = "账号",required = true)
     @NotBlank(message = "账号不能为空",groups = {Create.class})
+    @Null(message = "修改用户时，账号必须为空",groups = Update.class)
     private String userAccount;
 
     @ApiModelProperty(value = "用户名",required = true)
@@ -30,8 +28,8 @@ public class UserRequest {
     private String userName;
 
     @ApiModelProperty(value = "用户类型",required = true)
-    @NotBlank(message = "用户类型为空",groups = {Create.class, Update.class})
-    private UserTypeEnum UserType;
+    @NotNull(message = "用户类型为空",groups = {Create.class, Update.class})
+    private UserTypeEnum userType;
 
     @ApiModelProperty(value = "手机号",required = true)
     @NotBlank(message = "手机号不能为空",groups = {Create.class, Update.class})
@@ -42,7 +40,7 @@ public class UserRequest {
     @NotBlank(message = "邮箱不能为空",groups = {Create.class, Update.class})
     private String userEmail;
 
-    @ApiModelProperty("角色")
+    @ApiModelProperty(value = "角色",required = true)
     @NotEmpty(message = "角色不能为空",groups = {Create.class, Update.class})
-    private List<Role> roles;
+    private List<Integer> roles;
 }

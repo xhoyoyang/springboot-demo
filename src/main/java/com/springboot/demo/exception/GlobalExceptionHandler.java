@@ -23,12 +23,12 @@ import java.util.Set;
 
 @RestControllerAdvice
 @Component
-public class ExceptionHandle {
+public class GlobalExceptionHandler {
 
-    private final static Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
+    private final static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     //参数校验,method params
-    @ExceptionHandler({javax.validation.ValidationException.class})
+    @ExceptionHandler({ValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Object validationException(ValidationException ex){
         ConstraintViolationException errors = (ConstraintViolationException)ex;

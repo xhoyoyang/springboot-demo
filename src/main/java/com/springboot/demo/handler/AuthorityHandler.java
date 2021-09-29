@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -38,16 +37,21 @@ public class AuthorityHandler {
 
             LOGGER.info("authorities:{}",authentication.getAuthorities());
 
-            if(((UserDetails) userInfo).getAuthorities().contains(new SimpleGrantedAuthority(StringUtils.replaceOnce(request.getRequestURI(),request.getContextPath(),"")))){
-                isAllowed = true;
-            }
 
+            //验证权限
+            for (GrantedAuthority item : authorities) {
+                if(new AntPathMatcher().match(item.toString(),StringUtils.replaceOnce(request.getRequestURI(),request.getContextPath(),""))){
+                    isAllowed = true;
+                }
+            }
+            //for 2
             /*for (String url : urls) {
                 if (antPathMatcher.match(url, request.getRequestURI())) {
                     isAllowed = true;
                     break;
                 }
             }*/
+
         }
 
         return  isAllowed;

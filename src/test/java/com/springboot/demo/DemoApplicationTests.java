@@ -3,6 +3,7 @@ package com.springboot.demo;
 import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
 import com.springboot.demo.enums.UserTypeEnum;
+import com.springboot.demo.service.MenuService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ class DemoApplicationTests {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private MenuService menuService;
 
     private ThreadPoolExecutor pool = new ThreadPoolExecutor(10,10,0l, TimeUnit.SECONDS,new LinkedBlockingQueue<>());
 
@@ -102,6 +106,12 @@ class DemoApplicationTests {
         //user.setUpdateTime(LocalDateTime.now());
         user.setUpdateUser("test");
         this.userMapper.insert(user);
+    }
+
+    @Test
+    void menuTest(){
+
+        this.menuService.listTree();
     }
 
 

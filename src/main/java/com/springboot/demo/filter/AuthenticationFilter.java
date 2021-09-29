@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.springboot.demo.Constant.Media;
 import com.springboot.demo.Utils.JwtUtil;
 import com.springboot.demo.controller.auth.UserInfo;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -58,7 +57,7 @@ public class AuthenticationFilter extends GenericFilter {
                     LOGGER.debug("token is valid:{}",JwtUtil.isExpiration(token));
                     UserInfo userInfo = JwtUtil.parseToken(token);
                     SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userInfo,null,userInfo.getAuthorities()));
-                }catch (JwtException e){
+                }catch (Exception e){
                     SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(null,false));
                 }
             }else{
