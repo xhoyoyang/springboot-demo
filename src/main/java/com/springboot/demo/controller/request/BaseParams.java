@@ -18,7 +18,7 @@ public class BaseParams {
     private Integer pageSize = 10;
 
     @ApiModelProperty(hidden = true)
-    private Page page = new Page(pageNum,pageSize);
+    private Page page;
 
     @ApiModelProperty("开始时间")
     private Date startTime;
@@ -26,4 +26,7 @@ public class BaseParams {
     @ApiModelProperty("结束时间")
     private Date endTime;
 
+    public Page getPage() {
+        return page == null ? new Page(pageNum,pageSize) : page;
+    }
 }

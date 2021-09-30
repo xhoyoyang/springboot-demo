@@ -25,10 +25,8 @@ public class RoleController {
     @PostMapping("/listPage")
     public Rs listByPage(@Validated @RequestBody RoleListRequest request){
 
-        Page page = request.getPage();
-        page.setRecords(this.roleService.listByPage(request));
-
-        return Rs.ok(page);
+        this.roleService.listByPage(request);
+        return Rs.ok(request.getPage();
 
     }
 

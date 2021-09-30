@@ -48,7 +48,7 @@ public class RoleService {
         }
 
         Page<Role> page = this.roleMapper.selectPage(request.getPage(), query);
-
+        request.setPage(page);
         return page.getRecords();
 
     }

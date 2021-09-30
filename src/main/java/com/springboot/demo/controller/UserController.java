@@ -30,9 +30,8 @@ public class UserController {
     @ApiOperation("分页查询用户信息")
     @PostMapping("/listPage")
     public Rs<Page<UserVo>> list(@Validated @RequestBody UserListRequest request){
-        Page page = request.getPage();
-        page.setRecords(userService.listByPage(request));
-        return Rs.ok(page);
+        this.userService.listByPage(request);
+        return Rs.ok(request.getPage());
     }
 
     @ApiOperation("新增用户")

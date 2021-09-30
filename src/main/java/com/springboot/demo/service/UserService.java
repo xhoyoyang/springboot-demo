@@ -69,6 +69,7 @@ public class UserService implements UserDetailsService {
             userVo.setRoles(roles);
             users.add(userVo);
         });
+        request.setPage(page);
         return users;
     }
 
