@@ -1,4 +1,4 @@
-package com.springboot.demo.vo.common;
+package com.springboot.demo.common.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.springboot.demo.Utils;
+package com.springboot.demo.util;
 
 /**
  * 脱敏工具类

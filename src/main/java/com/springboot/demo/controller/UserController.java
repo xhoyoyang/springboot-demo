@@ -2,9 +2,9 @@ package com.springboot.demo.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.controller.request.UserListRequest;
+import com.springboot.demo.controller.request.UserQueryRequest;
 import com.springboot.demo.controller.request.UserRequest;
-import com.springboot.demo.rs.Rs;
+import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.service.UserService;
 import com.springboot.demo.validate.group.Create;
 import com.springboot.demo.validate.group.Update;
@@ -29,7 +29,7 @@ public class UserController {
 
     @ApiOperation("分页查询用户信息")
     @PostMapping("/listPage")
-    public Rs<Page<UserVo>> list(@Validated @RequestBody UserListRequest request){
+    public Rs<Page<UserVo>> list(@Validated @RequestBody UserQueryRequest request){
         this.userService.listByPage(request);
         return Rs.ok(request.getPage());
     }

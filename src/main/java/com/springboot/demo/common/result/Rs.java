@@ -1,4 +1,4 @@
-package com.springboot.demo.rs;
+package com.springboot.demo.common.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -2,7 +2,7 @@ package com.springboot.demo.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.controller.request.RoleListRequest;
+import com.springboot.demo.controller.request.RoleQueryRequest;
 import com.springboot.demo.controller.request.RoleRequest;
 import com.springboot.demo.dao.MenuMapper;
 import com.springboot.demo.dao.RoleMapper;
@@ -40,7 +40,7 @@ public class RoleService {
 
 
 
-    public List<Role> listByPage(RoleListRequest request){
+    public List<Role> listByPage(RoleQueryRequest request){
 
         LambdaQueryWrapper<Role> query = new LambdaQueryWrapper<>();
         if (StringUtils.isNotBlank(request.getRoleName())){

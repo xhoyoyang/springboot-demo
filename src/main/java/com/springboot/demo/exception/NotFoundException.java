@@ -1,7 +1,7 @@
 package com.springboot.demo.exception;
 
-import com.springboot.demo.rs.Rs;
-import com.springboot.demo.rs.RsStatus;
+import com.springboot.demo.common.result.Rs;
+import com.springboot.demo.common.result.RsStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;

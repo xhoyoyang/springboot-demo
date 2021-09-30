@@ -1,9 +1,9 @@
 package com.springboot.demo.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.demo.common.Constant.Media;
-import com.springboot.demo.rs.Rs;
-import com.springboot.demo.rs.RsStatus;
+import com.springboot.demo.common.constant.Media;
+import com.springboot.demo.common.result.Rs;
+import com.springboot.demo.common.result.RsStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

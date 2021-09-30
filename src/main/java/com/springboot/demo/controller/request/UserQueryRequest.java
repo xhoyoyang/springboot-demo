@@ -1,13 +1,14 @@
 package com.springboot.demo.controller.request;
 
 
+import com.springboot.demo.common.entity.BaseParams;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class UserListRequest extends BaseParams{
+public class UserQueryRequest extends BaseParams {
 
     @ApiModelProperty("用户名")
     private String userName;

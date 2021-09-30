@@ -1,8 +1,8 @@
-package com.springboot.demo.entity;
+package com.springboot.demo.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.springboot.demo.Utils.AuthorizationUtil;
+import com.springboot.demo.util.AuthorizationUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

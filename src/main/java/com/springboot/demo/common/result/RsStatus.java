@@ -1,4 +1,4 @@
-package com.springboot.demo.rs;
+package com.springboot.demo.common.result;
 
 public enum  RsStatus {
 

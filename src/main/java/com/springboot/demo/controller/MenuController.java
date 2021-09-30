@@ -1,7 +1,7 @@
 package com.springboot.demo.controller;
 
 import com.springboot.demo.controller.request.MenuRequest;
-import com.springboot.demo.rs.Rs;
+import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.service.MenuService;
 import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.Api;

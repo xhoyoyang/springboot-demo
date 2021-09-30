@@ -1,9 +1,9 @@
 package com.springboot.demo.controller;
 
 
-import com.springboot.demo.controller.request.RoleListRequest;
+import com.springboot.demo.controller.request.RoleQueryRequest;
 import com.springboot.demo.controller.request.RoleRequest;
-import com.springboot.demo.rs.Rs;
+import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ public class RoleController {
 
     @ApiOperation("分页查询角色信息")
     @PostMapping("/listPage")
-    public Rs listByPage(@Validated @RequestBody RoleListRequest request){
+    public Rs listByPage(@Validated @RequestBody RoleQueryRequest request){
 
         this.roleService.listByPage(request);
         return Rs.ok(request.getPage());

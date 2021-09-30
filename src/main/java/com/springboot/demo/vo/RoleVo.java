@@ -1,6 +1,6 @@
 package com.springboot.demo.vo;
 
-import com.springboot.demo.vo.common.BaseVo;
+import com.springboot.demo.common.entity.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 

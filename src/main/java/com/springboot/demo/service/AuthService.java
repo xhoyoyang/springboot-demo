@@ -2,7 +2,7 @@ package com.springboot.demo.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.springboot.demo.Utils.JwtUtil;
+import com.springboot.demo.util.JwtUtil;
 import com.springboot.demo.controller.auth.UserInfo;
 import com.springboot.demo.controller.request.UserLoginRequest;
 import com.springboot.demo.dao.RoleMapper;

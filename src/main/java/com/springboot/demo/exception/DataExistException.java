@@ -1,6 +1,6 @@
 package com.springboot.demo.exception;
 
-import com.springboot.demo.rs.RsStatus;
+import com.springboot.demo.common.result.RsStatus;
 
 public class DataExistException extends RuntimeException {
 

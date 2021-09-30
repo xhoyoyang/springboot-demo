@@ -1,4 +1,4 @@
-package com.springboot.demo.controller.request;
+package com.springboot.demo.common.entity;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModelProperty;

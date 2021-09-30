@@ -3,7 +3,7 @@ package com.springboot.demo.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.controller.request.UserListRequest;
+import com.springboot.demo.controller.request.UserQueryRequest;
 import com.springboot.demo.controller.request.UserRequest;
 import com.springboot.demo.dao.RoleMapper;
 import com.springboot.demo.dao.UserMapper;
@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
      * @param request
      * @return
      */
-    public List<UserVo> listByPage(UserListRequest request){
+    public List<UserVo> listByPage(UserQueryRequest request){
         //
         LambdaQueryWrapper<User> query = new QueryWrapper<User>().lambda();
         query.like(User::getUserName, request.getUserName());

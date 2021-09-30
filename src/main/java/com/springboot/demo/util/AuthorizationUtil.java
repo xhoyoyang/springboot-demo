@@ -1,4 +1,4 @@
-package com.springboot.demo.Utils;
+package com.springboot.demo.util;
 
 import com.springboot.demo.controller.auth.UserInfo;
 import org.springframework.security.core.context.SecurityContextHolder;
