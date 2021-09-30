@@ -1,7 +1,6 @@
 package com.springboot.demo.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.controller.request.RoleListRequest;
 import com.springboot.demo.controller.request.RoleRequest;
 import com.springboot.demo.rs.Rs;
@@ -26,7 +25,7 @@ public class RoleController {
     public Rs listByPage(@Validated @RequestBody RoleListRequest request){
 
         this.roleService.listByPage(request);
-        return Rs.ok(request.getPage();
+        return Rs.ok(request.getPage());
 
     }
 
