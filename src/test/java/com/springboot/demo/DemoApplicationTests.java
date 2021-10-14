@@ -4,6 +4,7 @@ import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
 import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.service.MenuService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
+@Slf4j
 class DemoApplicationTests {
 
     @Autowired
@@ -112,6 +114,14 @@ class DemoApplicationTests {
     void menuTest(){
 
         this.menuService.listTree();
+    }
+
+    @Test
+    void logTest(){
+        log.debug("这是：{}日志","debug");
+        log.info("这是：{}日志","INFO");
+        log.warn("这是：{}日志","warn");
+        log.error("这是：{}日志","error");
     }
 
 
