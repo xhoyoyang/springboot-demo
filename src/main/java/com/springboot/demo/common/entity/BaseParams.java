@@ -14,7 +14,7 @@ public class BaseParams {
     @ApiModelProperty("当前页")
     private Integer pageNum = 1;
 
-    @ApiModelProperty("每页大小")
+    @ApiModelProperty(value = "每页大小",example = "10")
     private Integer pageSize = 10;
 
     @ApiModelProperty(hidden = true)

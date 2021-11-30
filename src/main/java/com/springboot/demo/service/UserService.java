@@ -74,18 +74,21 @@ public class UserService implements UserDetailsService {
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createUser(UserRequest request){
 
         User user = new User();
         BeanUtils.copyProperties(request,user);
-        user.buildForCreate();
         //验证用户名
         List<User> users = this.userMapper.selectList(new QueryWrapper<User>().lambda().eq(User::getUserAccount, user.getUserAccount()));
-        if(!CollectionUtils.isEmpty(users)) throw new DataExistException("用户名已存在");
+        if(!CollectionUtils.isEmpty(users)) {
+            throw new DataExistException("用户名已存在");
+        }
         //验证角色
         List<Role> roles = this.roleMapper.selectList(new QueryWrapper<Role>().in("id",request.getRoles()));
-        if (request.getRoles().size() != roles.size()) throw new DataNotExistException("角色不存在,请检查参数");
+        if (request.getRoles().size() != roles.size()) {
+            throw new DataNotExistException("角色不存在,请检查参数");
+        }
         //新增用户
         this.userMapper.insert(user);
         //新增用户角色
@@ -97,17 +100,20 @@ public class UserService implements UserDetailsService {
      * 修改用户信息
      * @param request
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateUser(UserRequest request){
 
         //验证用户是否存在
         User user = this.userMapper.selectById(request.getId());
-        if(null == user) throw new DataNotExistException("用户不存在");
+        if(null == user) {
+            throw new DataNotExistException("用户不存在");
+        }
         //验证角色
         List<Role> roles = this.roleMapper.selectList(new QueryWrapper<Role>().lambda().in(Role::getId,request.getRoles()));
-        if (request.getRoles().size() != roles.size()) throw new DataNotExistException("角色不存在,请检查参数");
+        if (request.getRoles().size() != roles.size()) {
+            throw new DataNotExistException("角色不存在,请检查参数");
+        }
         BeanUtils.copyProperties(request,user);
-        user.buildForUpdatee();
         //更新用户
         this.userMapper.updateById(user);
         //更新用户角色，先删除用户所有角色

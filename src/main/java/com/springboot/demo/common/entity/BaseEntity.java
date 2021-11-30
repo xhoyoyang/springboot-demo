@@ -1,8 +1,9 @@
 package com.springboot.demo.common.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.springboot.demo.util.AuthorizationUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,30 +18,22 @@ public class BaseEntity {
     private Integer id;
 
     @ApiModelProperty(hidden = true)
+    @TableField(fill = FieldFill.INSERT)
     private String createUser;
 
     @ApiModelProperty(hidden = true)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty(hidden = true)
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     @ApiModelProperty(hidden = true)
+    @TableField(fill = FieldFill.UPDATE)
     private String updateUser;
 
     @ApiModelProperty(hidden = true)
     private Integer flag;
-
-    public void buildForCreate(){
-        this.createUser = AuthorizationUtil.currentUser().getUserAccount();
-        this.createTime = LocalDateTime.now();
-        this.updateUser = AuthorizationUtil.currentUser().getUserAccount();
-        this.updateTime = LocalDateTime.now();
-    }
-
-    public void buildForUpdatee(){
-        this.updateUser = AuthorizationUtil.currentUser().getUserAccount();
-        this.updateTime = LocalDateTime.now();
-    }
 
 }

@@ -41,16 +41,20 @@ public class AuthService implements UserDetailsService {
 
         //验证用户名密码
         LambdaQueryWrapper<User> query = new QueryWrapper<User>().lambda();
-        query.eq(User::getUserAccount,request.getUsername());
+        query.eq(User::getUserAccount, request.getUsername());
         //query.eq("user_password", DigestUtils.md5Hex(user.getPassword()));
         //先查询用户再验证密码，用于提高查询效率
         User user = userMapper.selectOne(query);
-        if(null == user) throw new DataNotExistException("用户名或密码错误");
-        if(!user.getUserPassword().equals(DigestUtils.md5Hex(request.getPassword()))) throw new DataNotExistException("用户名或密码错误");
+        if (null == user) {
+            throw new DataNotExistException("用户名或密码错误");
+        }
+        if (!user.getUserPassword().equals(DigestUtils.md5Hex(request.getPassword()))) {
+            throw new DataNotExistException("用户名或密码错误");
+        }
         //查询用户角色权限
         Set<String> roles = roleMapper.findUserRoleMenuByUserId(user.getId());
         UserInfo userInfo = new UserInfo();
-        BeanUtils.copyProperties(user,userInfo);
+        BeanUtils.copyProperties(user, userInfo);
         userInfo.setRoles(roles);
         //不需要的值
         userInfo.setCreateTime(null);

@@ -28,7 +28,6 @@ public class MenuService {
 
         Menu menu = new Menu();
         BeanUtils.copyProperties(request,menu);
-        menu.buildForCreate();
         this.menuMapper.insert(menu);
 
     }
@@ -41,9 +40,10 @@ public class MenuService {
 
         //验证菜单是否存在
         Menu menu = this.menuMapper.selectById(request.getId());
-        if (null == menu) throw new DataNotExistException("数据不存在");
+        if (null == menu) {
+            throw new DataNotExistException("数据不存在");
+        }
         BeanUtils.copyProperties(request,menu);
-        menu.buildForUpdatee();
         this.menuMapper.updateById(menu);
     }
 
