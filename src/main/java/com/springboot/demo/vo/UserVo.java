@@ -27,6 +27,8 @@ public class UserVo extends BaseVo {
     @Desensitization(type = DesensitizationType.EMAIL)
     private String userEmail;
 
-    private List<String> roles;
+    private List<String> roleNames;
+
+    private List<Integer> roles;
 
 }

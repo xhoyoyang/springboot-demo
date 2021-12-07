@@ -2,9 +2,9 @@ package com.springboot.demo.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.controller.request.UserQueryRequest;
 import com.springboot.demo.controller.request.UserRequest;
-import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.service.UserService;
 import com.springboot.demo.validate.group.Create;
 import com.springboot.demo.validate.group.Update;
@@ -13,9 +13,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
@@ -24,8 +26,13 @@ public class UserController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
+    @Resource
     private UserService userService;
+
+    @Resource
+    private CacheManager cacheManager;
+
+
 
     @ApiOperation("分页查询用户信息")
     @PostMapping("/listPage")
@@ -41,6 +48,12 @@ public class UserController {
         return Rs.ok();
     }
 
+
+    @ApiOperation("用户详情")
+    @GetMapping("/detail/{id}")
+    public Rs<UserVo> detail(@PathVariable Integer id){
+        return Rs.ok(this.userService.getUserDetail(id));
+    }
 
     @ApiOperation("修改用户信息")
     @PostMapping("/update")

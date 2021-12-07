@@ -3,6 +3,8 @@ package com.springboot.demo.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.springboot.demo.common.entity.BaseEntity;
+import com.springboot.demo.config.CacheConfig;
 import com.springboot.demo.controller.request.UserQueryRequest;
 import com.springboot.demo.controller.request.UserRequest;
 import com.springboot.demo.dao.RoleMapper;
@@ -16,17 +18,21 @@ import com.springboot.demo.exception.DataNotExistException;
 import com.springboot.demo.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,14 +40,17 @@ public class UserService implements UserDetailsService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private UserRoleMapper userRoleMapper;
+
+    @Resource
+    private CacheManager cacheManager;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -65,11 +74,12 @@ public class UserService implements UserDetailsService {
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(item,userVo);
             //用户角色
-            List<String> roles = this.roleMapper.findRolesByUserId(userVo.getId());
-            userVo.setRoles(roles);
+            List<String> roles = this.roleMapper.findRolesByUserId(userVo.getId()).stream().map(Role::getRoleName).collect(Collectors.toList());
+            userVo.setRoleNames(roles);
             users.add(userVo);
         });
         request.setPage(page);
+        this.cacheManager.getCache("localhost").put("user",users);
         return users;
     }
 
@@ -95,6 +105,26 @@ public class UserService implements UserDetailsService {
         this.resetUserRole(roles,user.getId());
 
     }
+
+
+    /**
+     * 用户详情
+     * @param id
+     * @return
+     */
+    @Cacheable(value = CacheConfig.detaultCache)
+    public UserVo getUserDetail(Integer id){
+        User user = this.userMapper.selectById(id);
+        Assert.notNull(user,"用户不存在");
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user,userVo);
+        //用户角色
+        List<Integer> roles = this.roleMapper.findRolesByUserId(userVo.getId()).stream().map(BaseEntity::getId).collect(Collectors.toList());
+        userVo.setRoles(roles);
+
+        return userVo;
+    }
+
 
     /**
      * 修改用户信息
@@ -126,7 +156,7 @@ public class UserService implements UserDetailsService {
      * 删除用户
      * @param userId
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUser(Integer userId){
         this.userMapper.deleteById(userId);
     }
