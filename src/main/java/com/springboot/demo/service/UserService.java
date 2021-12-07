@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +52,9 @@ public class UserService implements UserDetailsService {
 
     @Resource
     private CacheManager cacheManager;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

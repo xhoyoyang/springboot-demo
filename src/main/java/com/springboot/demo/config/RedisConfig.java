@@ -2,7 +2,7 @@ package com.springboot.demo.config;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -30,7 +30,7 @@ public class RedisConfig {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(value = "spring.redis.lettuce")
+    @ConditionalOnProperty(name = "spring.redis.lettuce.pool.max-active")
     public GenericObjectPoolConfig genericObjectPoolConfig(){
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
 
@@ -43,11 +43,11 @@ public class RedisConfig {
     }
 
     /**
-     * redis sentinel connection
+     * Redis Sentinel Configuration
      * @return
      */
-    @ConditionalOnProperty(value = "spring.redis")
     @Bean
+    @ConditionalOnProperty(name = "spring.redis.sentinel.master")
     public RedisSentinelConfiguration redisSentinelConnection(){
         RedisSentinelConfiguration config = new RedisSentinelConfiguration();
 
@@ -65,11 +65,11 @@ public class RedisConfig {
     }
 
     /**
-     * redis standalone connection
+     * Redis Standalone Configuration
      * @return
      */
-    @ConditionalOnProperty(value = "spring.redis")
-    @ConditionalOnMissingBean(RedisStandaloneConfiguration.class)
+    @ConditionalOnProperty(name = "spring.redis.host")
+    @ConditionalOnMissingBean(RedisSentinelConfiguration.class)
     @Bean
     public RedisConfiguration redisConfiguration(){
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
@@ -84,8 +84,7 @@ public class RedisConfig {
 
 
     @Bean
-    @ConditionalOnProperty(value = "spring.redis")
-    @ConditionalOnClass(value=RedisSentinelConfiguration.class)
+    @ConditionalOnBean({GenericObjectPoolConfig.class,RedisConfiguration.class})
     public LettuceConnectionFactory lettuceConnectionFactory(GenericObjectPoolConfig poolConfig , RedisConfiguration redisConfiguration){
         LettucePoolingClientConfiguration lettucePoolingClientConfiguration= LettucePoolingClientConfiguration.builder().poolConfig(poolConfig).build();
 
@@ -95,8 +94,8 @@ public class RedisConfig {
 
     }
 
-    @ConditionalOnProperty(value = "spring.redis")
     @Bean
+    @ConditionalOnBean(RedisConnectionFactory.class)
     public StringRedisTemplate stringRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
         StringRedisTemplate redisTemplate = new StringRedisTemplate();
 
@@ -113,8 +112,8 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @ConditionalOnProperty(value = "spring.redis")
     @Bean
+    @ConditionalOnBean(RedisConnectionFactory.class)
     public RedisTemplate redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
 
         RedisTemplate redisTemplate = new StringRedisTemplate();
