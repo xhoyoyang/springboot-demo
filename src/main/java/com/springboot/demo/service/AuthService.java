@@ -66,7 +66,7 @@ public class AuthService implements UserDetailsService {
         BeanUtils.copyProperties(user, userInfo);
         userInfo.setRoles(roles);
         //  用户信息存入缓存
-        this.cacheManager.getCache(CacheConfig.detaultCache).put("auth:user:id:"+user.getId(),userInfo);
+        this.cacheManager.getCache(CacheConfig.DEFAULT_CACHE).put("auth:user:id:"+user.getId(),userInfo);
         return userInfo;
     }
 }

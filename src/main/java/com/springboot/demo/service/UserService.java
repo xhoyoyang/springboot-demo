@@ -116,7 +116,7 @@ public class UserService implements UserDetailsService {
      * @param id
      * @return
      */
-    @Cacheable(value = CacheConfig.detaultCache)
+    @Cacheable(value = CacheConfig.DEFAULT_CACHE)
     public UserVo getUserDetail(Integer id){
         User user = this.userMapper.selectById(id);
         Assert.notNull(user,"用户不存在");

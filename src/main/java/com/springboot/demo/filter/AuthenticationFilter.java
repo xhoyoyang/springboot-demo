@@ -67,7 +67,7 @@ public class AuthenticationFilter extends GenericFilter {
 
                     //先从缓存里拿用户信息，拿不到再去查库
                     UserInfo userInfo = JwtUtil.parseToken(token);
-                    Cache.ValueWrapper cacheValue = cacheManager.getCache(CacheConfig.detaultCache).get("auth:user:id:" + userInfo.getId());
+                    Cache.ValueWrapper cacheValue = cacheManager.getCache(CacheConfig.DEFAULT_CACHE).get("auth:user:id:" + userInfo.getId());
                     if (null == cacheValue) {
                         userInfo = authService.getUserInfo(userInfo.getId());
                     } else {
