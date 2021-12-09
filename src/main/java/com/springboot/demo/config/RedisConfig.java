@@ -1,5 +1,13 @@
 package com.springboot.demo.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -12,18 +20,22 @@ import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Configuration
 public class RedisConfig {
 
     @Autowired
     private RedisProperties redisProperties;
+
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * lettuce connection pool
@@ -94,34 +106,19 @@ public class RedisConfig {
 
     }
 
+
+
     @Bean
     @ConditionalOnBean(RedisConnectionFactory.class)
-    public StringRedisTemplate stringRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
-        StringRedisTemplate redisTemplate = new StringRedisTemplate();
+    public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
+
+        RedisTemplate<String,Object> redisTemplate = new RedisTemplate();
 
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
-        redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setValueSerializer(stringRedisSerializer);
-
-        redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(stringRedisSerializer);
-
-        return redisTemplate;
-    }
-
-    @Bean
-    @ConditionalOnBean(RedisConnectionFactory.class)
-    public RedisTemplate redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
-
-        RedisTemplate redisTemplate = new StringRedisTemplate();
-
-        redisTemplate.setConnectionFactory(lettuceConnectionFactory);
-
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new RedisConfig().jackson2JsonRedisSerializer();
 
         redisTemplate.setKeySerializer(stringRedisSerializer);
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
@@ -130,5 +127,20 @@ public class RedisConfig {
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
 
         return redisTemplate;
+    }
+
+    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer(){
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
+        om.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
+        om.registerModule(javaTimeModule);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+
+        return jackson2JsonRedisSerializer;
     }
 }

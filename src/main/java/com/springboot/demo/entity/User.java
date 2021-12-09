@@ -3,12 +3,12 @@ package com.springboot.demo.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.springboot.demo.common.entity.BaseEntity;
 import com.springboot.demo.common.enums.UserTypeEnum;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @TableName("user")
-@Setter
-@Getter
+@Data
 public class User extends BaseEntity {
 
     private String userName;

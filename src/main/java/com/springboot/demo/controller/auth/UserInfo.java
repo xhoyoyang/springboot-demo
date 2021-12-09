@@ -11,14 +11,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(value = {"authorities","roles"},ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"authorities"},ignoreUnknown = true)
 public class UserInfo extends User implements UserDetails, Serializable {
 
-    private Set<String> roles;
+    public Set<String> roles;
 
     public UserInfo() {
 
     }
+
 
     public Set<String> getRoles() {
         return roles;

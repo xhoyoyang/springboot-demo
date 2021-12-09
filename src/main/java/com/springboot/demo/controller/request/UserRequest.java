@@ -4,14 +4,14 @@ import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.validate.group.Create;
 import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.*;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@ToString
 public class UserRequest {
 
     @ApiModelProperty(value = "id,修改时不能为空",required = true)

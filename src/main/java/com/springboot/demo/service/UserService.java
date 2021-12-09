@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.entity.BaseEntity;
-import com.springboot.demo.config.CacheConfig;
 import com.springboot.demo.controller.request.UserQueryRequest;
 import com.springboot.demo.controller.request.UserRequest;
 import com.springboot.demo.dao.RoleMapper;
@@ -18,7 +17,7 @@ import com.springboot.demo.exception.DataNotExistException;
 import com.springboot.demo.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +36,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@CacheConfig(cacheNames = "user")
 public class UserService implements UserDetailsService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -49,9 +49,6 @@ public class UserService implements UserDetailsService {
 
     @Resource
     private UserRoleMapper userRoleMapper;
-
-    @Resource
-    private CacheManager cacheManager;
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
@@ -83,7 +80,6 @@ public class UserService implements UserDetailsService {
             users.add(userVo);
         });
         request.setPage(page);
-        this.cacheManager.getCache("localhost").put("user",users);
         return users;
     }
 
@@ -116,7 +112,7 @@ public class UserService implements UserDetailsService {
      * @param id
      * @return
      */
-    @Cacheable(value = CacheConfig.DEFAULT_CACHE)
+    @Cacheable()
     public UserVo getUserDetail(Integer id){
         User user = this.userMapper.selectById(id);
         Assert.notNull(user,"用户不存在");

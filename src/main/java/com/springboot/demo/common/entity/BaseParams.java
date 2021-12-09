@@ -2,13 +2,11 @@ package com.springboot.demo.common.entity;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
-@Setter
-@Getter
+@Data
 public class BaseParams {
 
     @ApiModelProperty("当前页")

@@ -2,7 +2,6 @@ package com.springboot.demo.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.springboot.demo.config.CacheConfig;
 import com.springboot.demo.controller.auth.UserInfo;
 import com.springboot.demo.controller.request.UserLoginRequest;
 import com.springboot.demo.dao.RoleMapper;
@@ -12,13 +11,14 @@ import com.springboot.demo.exception.DataNotExistException;
 import com.springboot.demo.util.JwtUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.CacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.Set;
 
 @Service
@@ -31,7 +31,7 @@ public class AuthService implements UserDetailsService {
     private RoleMapper roleMapper;
 
     @Resource
-    private CacheManager cacheManager;
+    private RedisTemplate<String,Object> redisTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -66,7 +66,7 @@ public class AuthService implements UserDetailsService {
         BeanUtils.copyProperties(user, userInfo);
         userInfo.setRoles(roles);
         //  用户信息存入缓存
-        this.cacheManager.getCache(CacheConfig.DEFAULT_CACHE).put("auth:user:id:"+user.getId(),userInfo);
+        this.redisTemplate.opsForValue().set("auth:user:id:"+user.getId(),userInfo, Duration.ofDays(1));
         return userInfo;
     }
 }

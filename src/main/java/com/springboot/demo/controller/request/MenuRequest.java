@@ -3,14 +3,14 @@ package com.springboot.demo.controller.request;
 import com.springboot.demo.common.enums.MenuTypeEnum;
 import com.springboot.demo.validate.annotation.EnumValidAnnotation;
 import com.springboot.demo.validate.group.Update;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Setter
-@Getter
+@Data
 public class MenuRequest {
 
     @NotNull(message = "id can not be null",groups = Update.class)
