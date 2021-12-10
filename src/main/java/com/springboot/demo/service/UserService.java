@@ -12,10 +12,13 @@ import com.springboot.demo.dao.UserRoleMapper;
 import com.springboot.demo.entity.Role;
 import com.springboot.demo.entity.User;
 import com.springboot.demo.entity.UserRole;
-import com.springboot.demo.exception.DataExistException;
-import com.springboot.demo.exception.DataNotExistException;
+import com.springboot.demo.exception.defination.DataExistException;
+import com.springboot.demo.exception.defination.DataNotExistException;
+import com.springboot.demo.exception.defination.InfoException;
 import com.springboot.demo.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,6 +35,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +56,9 @@ public class UserService implements UserDetailsService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private Redisson redisson;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -133,22 +140,34 @@ public class UserService implements UserDetailsService {
     @Transactional(rollbackFor = Exception.class)
     public void updateUser(UserRequest request){
 
-        //验证用户是否存在
-        User user = this.userMapper.selectById(request.getId());
-        if(null == user) {
-            throw new DataNotExistException("用户不存在");
+        RLock lock = redisson.getLock("user:update:id:" + request.getId());
+        try {
+            boolean tryLock = lock.tryLock(3, 60, TimeUnit.SECONDS);
+            if(!tryLock){
+                throw new InfoException("更新用户失败，未能获取到锁");
+            }
+            //验证用户是否存在
+            User user = this.userMapper.selectById(request.getId());
+            if(null == user) {
+                throw new DataNotExistException("用户不存在");
+            }
+            //验证角色
+            List<Role> roles = this.roleMapper.selectList(new QueryWrapper<Role>().lambda().in(Role::getId,request.getRoles()));
+            if (request.getRoles().size() != roles.size()) {
+                throw new DataNotExistException("角色不存在,请检查参数");
+            }
+            BeanUtils.copyProperties(request,user);
+            //更新用户
+            this.userMapper.updateById(user);
+            //更新用户角色，先删除用户所有角色
+            this.userRoleMapper.delete(new QueryWrapper<UserRole>().lambda().eq(UserRole::getUserId,user.getId()));
+            this.resetUserRole(roles,user.getId());
+        }catch (Exception e){
+            log.error("更新用户失败",e.getMessage(),e);
+            throw new InfoException();
+        }finally {
+            //lock.unlock();
         }
-        //验证角色
-        List<Role> roles = this.roleMapper.selectList(new QueryWrapper<Role>().lambda().in(Role::getId,request.getRoles()));
-        if (request.getRoles().size() != roles.size()) {
-            throw new DataNotExistException("角色不存在,请检查参数");
-        }
-        BeanUtils.copyProperties(request,user);
-        //更新用户
-        this.userMapper.updateById(user);
-        //更新用户角色，先删除用户所有角色
-        this.userRoleMapper.delete(new QueryWrapper<UserRole>().lambda().eq(UserRole::getUserId,user.getId()));
-        this.resetUserRole(roles,user.getId());
 
     }
 

@@ -6,7 +6,7 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import com.springboot.demo.controller.request.MenuRequest;
 import com.springboot.demo.dao.MenuMapper;
 import com.springboot.demo.entity.Menu;
-import com.springboot.demo.exception.DataNotExistException;
+import com.springboot.demo.exception.defination.DataNotExistException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

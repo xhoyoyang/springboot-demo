@@ -7,7 +7,7 @@ import com.springboot.demo.controller.request.UserLoginRequest;
 import com.springboot.demo.dao.RoleMapper;
 import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
-import com.springboot.demo.exception.DataNotExistException;
+import com.springboot.demo.exception.defination.DataNotExistException;
 import com.springboot.demo.util.JwtUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
