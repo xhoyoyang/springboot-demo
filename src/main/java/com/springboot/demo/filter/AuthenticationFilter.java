@@ -50,7 +50,7 @@ public class AuthenticationFilter extends GenericFilter {
                 break;
             }
         }
-
+        isCheck = false;
         if (isCheck) {
             String token = request.getHeader(Media.MEDIA_TOKEN);
             // TODO: 2021/3/4 check token is not null and not exipred and effective
