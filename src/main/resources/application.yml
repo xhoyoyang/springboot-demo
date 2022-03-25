@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${random.int[10000,20000]}
   servlet:
     context-path: /demo
 spring:
@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://www.xhoyoyang.top:33060/springboot-demo?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://www.xhoyoyang.top:13306/springboot-demo?useUnicode=true&characterEncoding=utf8
     hikari:
       connection-timeout: 3000
   #    url: jdbc:mysql://192.168.50.148:3306/user_test?useUnicode=true&characterEncoding=utf8
@@ -33,7 +33,7 @@ spring:
     default-property-inclusion: always
     locale: zh_CN
   quartz:
-    job-store-type: memory # Job 存储器类型。默认为 memory 表示内存，可选 jdbc 使用数据库。
+    job-store-type: jdbc # Job 存储器类型。默认为 memory 表示内存，可选 jdbc 使用数据库。
     auto-startup: true # Quartz 是否自动启动
     startup-delay: 0 # 延迟 N 秒启动
     wait-for-jobs-to-complete-on-shutdown: true # 应用关闭时，是否等待定时任务执行完成。默认为 false ，建议设置为 true
@@ -45,6 +45,9 @@ spring:
             threadCount: 2 # 线程池大小。默认为 10 。
             threadPriority: 5 # 线程优先级
             class: org.quartz.simpl.SimpleThreadPool # 线程池类型
+    jdbc:
+      initialize-schema: never
+
 logging:
   config: classpath:logback-spring.xml
   level:
