@@ -33,17 +33,16 @@ public class UserController {
     private CacheManager cacheManager;
 
 
-
     @ApiOperation("分页查询用户信息")
     @PostMapping("/listPage")
-    public Rs<Page<UserVo>> list(@Validated @RequestBody UserQueryRequest request){
+    public Rs<Page<UserVo>> list(@Validated @RequestBody UserQueryRequest request) {
         this.userService.listByPage(request);
         return Rs.ok(request.getPage());
     }
 
     @ApiOperation("新增用户")
     @PostMapping("/create")
-    public Rs createUser(@Validated(Create.class) @RequestBody UserRequest request){
+    public Rs createUser(@Validated(Create.class) @RequestBody UserRequest request) {
         this.userService.createUser(request);
         return Rs.ok();
     }
@@ -51,26 +50,27 @@ public class UserController {
 
     @ApiOperation("用户详情")
     @GetMapping("/detail/{id}")
-    public Rs<UserVo> detail(@PathVariable Integer id){
+    public Rs<UserVo> detail(@PathVariable Integer id) {
         return Rs.ok(this.userService.getUserDetail(id));
     }
 
     @ApiOperation("修改用户信息")
     @PostMapping("/update")
     @Validated
-    public Rs updateUser(@RequestBody @Validated(Update.class) UserRequest request){
+    public Rs updateUser(@RequestBody @Validated(Update.class) UserRequest request) {
         this.userService.updateUser(request);
         return Rs.ok();
     }
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */
     @ApiOperation("删除用户")
     @GetMapping("/delete/{id}")
-    public Rs deleteUser(@PathVariable("id") Integer id){
+    public Rs deleteUser(@PathVariable("id") Integer id) {
         this.userService.deleteUser(id);
         return Rs.ok();
     }

@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 public @interface Desensitization {
 
     //脱敏类型
-    DesensitizationType type() ;
+    DesensitizationType type();
 
     //前置不需要打码的长度
     int prefixNoMaskLen() default 1;
@@ -29,7 +29,6 @@ public @interface Desensitization {
 
     //用什么打码
     String maskStr() default "*";
-
 
 
 }

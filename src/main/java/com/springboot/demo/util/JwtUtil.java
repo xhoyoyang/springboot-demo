@@ -16,13 +16,11 @@ import java.util.Date;
 public class JwtUtil {
 
     private static final String SERCERT = "demo";
-    private static String SERCERT_KEY = "";
     private static final String SUBJECT = "demo";
     private static final long EXPIRE_TIME_DAYS = 7L;
-
     private static final String USER_PREFIX = "userInfo";
-
     private final static ObjectMapper MAPPER = new ObjectMapper();
+    private static String SERCERT_KEY = "";
 
     static {
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -32,14 +30,14 @@ public class JwtUtil {
     public static String generateToken(UserInfo userInfo) throws JsonProcessingException {
         String token = Jwts.builder()
                 .setSubject(SUBJECT)
-                .claim("id",userInfo.getId())
-                .claim("userName",userInfo.getUsername())
-                .claim("userAccount",userInfo.getUserAccount())
+                .claim("id", userInfo.getId())
+                .claim("userName", userInfo.getUsername())
+                .claim("userAccount", userInfo.getUserAccount())
                 //.claim("roles",userInfo.getAuthorities())
                 //.claim(USER_PREFIX,MAPPER.writeValueAsString(userInfo))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+ Duration.ofDays(EXPIRE_TIME_DAYS).toMillis()))
-                .signWith(SignatureAlgorithm.HS256,SERCERT_KEY).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + Duration.ofDays(EXPIRE_TIME_DAYS).toMillis()))
+                .signWith(SignatureAlgorithm.HS256, SERCERT_KEY).compact();
         return token;
     }
 
@@ -47,9 +45,9 @@ public class JwtUtil {
         Claims claims = Jwts.parser().setSigningKey(SERCERT_KEY).parseClaimsJws(token).getBody();
         UserInfo userInfo = new UserInfo();
 
-        userInfo.setId((Integer)claims.get("id"));
-        userInfo.setUserName((String)claims.get("userName"));
-        userInfo.setUserAccount((String)claims.get("userAccount"));
+        userInfo.setId((Integer) claims.get("id"));
+        userInfo.setUserName((String) claims.get("userName"));
+        userInfo.setUserAccount((String) claims.get("userAccount"));
 
         /*List<Map<String,String>> list =  claims.get("roles",List.class);
         Set<String> set = new HashSet<>();
@@ -65,12 +63,12 @@ public class JwtUtil {
         return userInfo;
     }
 
-    public static boolean isExpiration(String token){
+    public static boolean isExpiration(String token) {
 
         Claims claims = null;
         try {
             claims = Jwts.parser().setSigningKey(SERCERT_KEY).parseClaimsJws(token).getBody();
-        }catch (ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             return false;
         }
         return claims.getExpiration().before(new Date());

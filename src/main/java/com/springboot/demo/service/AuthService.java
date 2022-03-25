@@ -31,7 +31,7 @@ public class AuthService implements UserDetailsService {
     private RoleMapper roleMapper;
 
     @Resource
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -57,7 +57,7 @@ public class AuthService implements UserDetailsService {
     }
 
 
-    public UserInfo getUserInfo(Integer userId){
+    public UserInfo getUserInfo(Integer userId) {
 
         User user = userMapper.selectById(userId);
         //查询用户角色权限
@@ -66,7 +66,7 @@ public class AuthService implements UserDetailsService {
         BeanUtils.copyProperties(user, userInfo);
         userInfo.setRoles(roles);
         //  用户信息存入缓存
-        this.redisTemplate.opsForValue().set("auth:user:id:"+user.getId(),userInfo, Duration.ofDays(1));
+        this.redisTemplate.opsForValue().set("auth:user:id:" + user.getId(), userInfo, Duration.ofDays(1));
         return userInfo;
     }
 }

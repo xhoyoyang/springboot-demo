@@ -12,10 +12,10 @@ public class NameJsonSerializer extends JsonSerializer {
 
     @Override
     public void serialize(Object value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        if (value != null && value instanceof String){
+        if (value != null && value instanceof String) {
 
             String val = value.toString();
-            jsonGenerator.writeString(val.replaceAll("(.)(.*)","$1**"));
+            jsonGenerator.writeString(val.replaceAll("(.)(.*)", "$1**"));
 
         } else {
             jsonGenerator.writeObject(value);

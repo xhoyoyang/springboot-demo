@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import com.springboot.demo.util.DesensitizationUtil;
 import com.springboot.demo.annotation.Desensitization;
 import com.springboot.demo.common.enums.DesensitizationType;
+import com.springboot.demo.util.DesensitizationUtil;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -30,7 +30,8 @@ public class DesensitizationSerializer extends JsonSerializer<String> implements
     //用什么打码
     String maskStr;
 
-    public DesensitizationSerializer(){}
+    public DesensitizationSerializer() {
+    }
 
     public DesensitizationSerializer(DesensitizationType type, int prefixNoMaskLen, int suffixNoMaskLen, String maskStr) {
         this.type = type;
@@ -43,7 +44,7 @@ public class DesensitizationSerializer extends JsonSerializer<String> implements
     @Override
     public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
-        if(null != value && value instanceof String){
+        if (null != value && value instanceof String) {
             switch (type) {
                 case CHINESE_NAME:
                     jsonGenerator.writeString(DesensitizationUtil.chineseName(value));
@@ -75,12 +76,11 @@ public class DesensitizationSerializer extends JsonSerializer<String> implements
                 default:
                     jsonGenerator.writeString(DesensitizationUtil.desValue(value, prefixNoMaskLen, suffixNoMaskLen, maskStr));
             }
-        }else{
+        } else {
             jsonGenerator.writeObject(value);
         }
-        
-    }
 
+    }
 
 
     @Override
@@ -93,7 +93,7 @@ public class DesensitizationSerializer extends JsonSerializer<String> implements
                     desensitization = beanProperty.getContextAnnotation(Desensitization.class);
                 }
                 if (desensitization != null) {
-                    return new DesensitizationSerializer(desensitization.type(), desensitization.prefixNoMaskLen(),desensitization.suffixNoMaskLen(), desensitization.maskStr());
+                    return new DesensitizationSerializer(desensitization.type(), desensitization.prefixNoMaskLen(), desensitization.suffixNoMaskLen(), desensitization.maskStr());
                 }
             }
             return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
@@ -101,5 +101,5 @@ public class DesensitizationSerializer extends JsonSerializer<String> implements
         return serializerProvider.findNullValueSerializer(null);
     }
 
-    
+
 }

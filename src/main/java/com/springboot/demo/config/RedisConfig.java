@@ -32,18 +32,18 @@ import java.util.TimeZone;
 @Configuration
 public class RedisConfig {
 
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     @Autowired
     private RedisProperties redisProperties;
 
-    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
     /**
      * lettuce connection pool
+     *
      * @return
      */
     @Bean
     @ConditionalOnProperty(name = "spring.redis.lettuce.pool.max-active")
-    public GenericObjectPoolConfig genericObjectPoolConfig(){
+    public GenericObjectPoolConfig genericObjectPoolConfig() {
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
 
         config.setMinIdle(redisProperties.getLettuce().getPool().getMinIdle());
@@ -56,18 +56,19 @@ public class RedisConfig {
 
     /**
      * Redis Sentinel Configuration
+     *
      * @return
      */
     @Bean
     @ConditionalOnProperty(name = "spring.redis.sentinel.master")
-    public RedisSentinelConfiguration redisSentinelConnection(){
+    public RedisSentinelConfiguration redisSentinelConnection() {
         RedisSentinelConfiguration config = new RedisSentinelConfiguration();
 
         config.setMaster(redisProperties.getSentinel().getMaster());
         List<RedisNode> redisNodes = new ArrayList<>();
 
-        redisProperties.getSentinel().getNodes().forEach(item->{
-            redisNodes.add(new RedisNode(item.split(":")[0],Integer.parseInt(item.split(":")[1])));
+        redisProperties.getSentinel().getNodes().forEach(item -> {
+            redisNodes.add(new RedisNode(item.split(":")[0], Integer.parseInt(item.split(":")[1])));
         });
         config.setSentinels(redisNodes);
         config.setPassword(RedisPassword.of(redisProperties.getSentinel().getPassword()));
@@ -78,12 +79,13 @@ public class RedisConfig {
 
     /**
      * Redis Standalone Configuration
+     *
      * @return
      */
     @ConditionalOnProperty(name = "spring.redis.host")
     @ConditionalOnMissingBean(RedisSentinelConfiguration.class)
     @Bean
-    public RedisConfiguration redisConfiguration(){
+    public RedisConfiguration redisConfiguration() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
 
         configuration.setHostName(redisProperties.getHost());
@@ -96,23 +98,22 @@ public class RedisConfig {
 
 
     @Bean
-    @ConditionalOnBean({GenericObjectPoolConfig.class,RedisConfiguration.class})
-    public LettuceConnectionFactory lettuceConnectionFactory(GenericObjectPoolConfig poolConfig , RedisConfiguration redisConfiguration){
-        LettucePoolingClientConfiguration lettucePoolingClientConfiguration= LettucePoolingClientConfiguration.builder().poolConfig(poolConfig).build();
+    @ConditionalOnBean({GenericObjectPoolConfig.class, RedisConfiguration.class})
+    public LettuceConnectionFactory lettuceConnectionFactory(GenericObjectPoolConfig poolConfig, RedisConfiguration redisConfiguration) {
+        LettucePoolingClientConfiguration lettucePoolingClientConfiguration = LettucePoolingClientConfiguration.builder().poolConfig(poolConfig).build();
 
-        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisConfiguration,lettucePoolingClientConfiguration);
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisConfiguration, lettucePoolingClientConfiguration);
 
         return lettuceConnectionFactory;
 
     }
 
 
-
     @Bean
     @ConditionalOnBean(RedisConnectionFactory.class)
-    public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
 
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate();
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate();
 
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 
@@ -129,11 +130,11 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer(){
+    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance , ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
         om.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));

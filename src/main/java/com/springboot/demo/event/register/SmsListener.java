@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class SmsListener {
 
     @EventListener
-    public void sendSms(UserRegisterEvent event){
+    public void sendSms(UserRegisterEvent event) {
 
-        log.info("用户[{}]注册成功，发送短信",event.getUserName());
+        log.info("用户[{}]注册成功，发送短信", event.getUserName());
     }
 }

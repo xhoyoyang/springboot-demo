@@ -19,9 +19,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class Application {
 
 
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
     //bybatis-plus 枚举
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer customizer(){
+    public Jackson2ObjectMapperBuilderCustomizer customizer() {
         return builder -> builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
     }
 
@@ -31,11 +35,6 @@ public class Application {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
-    }
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
     }
 
 }

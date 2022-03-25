@@ -10,6 +10,10 @@ public class SpringUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
@@ -17,10 +21,6 @@ public class SpringUtil implements ApplicationContextAware {
             SpringUtil.applicationContext = applicationContext;
         }
 
-    }
-
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     //根据name

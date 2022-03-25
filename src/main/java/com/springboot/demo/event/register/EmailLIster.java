@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class EmailLIster {
 
     @EventListener
-    public void sendEmail(UserRegisterEvent event){
-        log.info("用户[{}]注册成功，发送邮件",event.getUserName());
+    public void sendEmail(UserRegisterEvent event) {
+        log.info("用户[{}]注册成功，发送邮件", event.getUserName());
     }
 }

@@ -12,7 +12,7 @@ public class BaseParams {
     @ApiModelProperty("当前页")
     private Integer pageNum = 1;
 
-    @ApiModelProperty(value = "每页大小",example = "10")
+    @ApiModelProperty(value = "每页大小", example = "10")
     private Integer pageSize = 10;
 
     @ApiModelProperty(hidden = true)
@@ -25,6 +25,6 @@ public class BaseParams {
     private Date endTime;
 
     public Page getPage() {
-        return page == null ? new Page(pageNum,pageSize) : page;
+        return page == null ? new Page(pageNum, pageSize) : page;
     }
 }

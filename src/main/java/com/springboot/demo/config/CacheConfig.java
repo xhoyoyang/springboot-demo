@@ -21,11 +21,8 @@ import java.time.Duration;
 @Configuration
 public class CacheConfig extends CachingConfigurerSupport {
 
-    private final static ObjectMapper MAPPER = new ObjectMapper();
-
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-
+    private final static ObjectMapper MAPPER = new ObjectMapper();
 
     @Bean
     public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
@@ -54,7 +51,7 @@ public class CacheConfig extends CachingConfigurerSupport {
             public Object generate(Object o, Method method, Object... objects) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(o.getClass().getName());
-                sb.append("::"+method.getName());
+                sb.append("::" + method.getName());
                 for (Object obj : objects) {
                     sb.append(obj.toString());
                 }

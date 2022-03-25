@@ -11,10 +11,10 @@ public class MobileJsonSerializer extends JsonSerializer {
 
     @Override
     public void serialize(Object value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        if (value != null && value instanceof String){
+        if (value != null && value instanceof String) {
 
             String val = value.toString();
-            jsonGenerator.writeString(val.replaceAll("(\\d{3})(\\d{5})(\\d{3})","$1***$2"));
+            jsonGenerator.writeString(val.replaceAll("(\\d{3})(\\d{5})(\\d{3})", "$1***$2"));
 
         } else {
             jsonGenerator.writeObject(value);

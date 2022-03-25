@@ -1,13 +1,10 @@
 package com.springboot.demo.vo;
 
 import com.springboot.demo.annotation.Desensitization;
+import com.springboot.demo.common.entity.BaseVo;
 import com.springboot.demo.common.enums.DesensitizationType;
 import com.springboot.demo.common.enums.UserTypeEnum;
-import com.springboot.demo.common.entity.BaseVo;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 

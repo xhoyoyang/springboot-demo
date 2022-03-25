@@ -59,13 +59,13 @@ public class AuthenticationFilter extends GenericFilter {
                     log.debug("token is valid:{}", JwtUtil.isExpiration(token));
 
                     AuthService authService = SpringUtil.getBean(AuthService.class);
-                    RedisTemplate<String,Object> redisTemplate = (RedisTemplate)SpringUtil.getBean("redisTemplate");
+                    RedisTemplate<String, Object> redisTemplate = (RedisTemplate) SpringUtil.getBean("redisTemplate");
 
                     //先从缓存里拿用户信息，拿不到再去查库
                     UserInfo userInfo = JwtUtil.parseToken(token);
                     Object o = null;
                     try {
-                         o = redisTemplate.opsForValue().get("auth:user:id:" + userInfo.getId());
+                        o = redisTemplate.opsForValue().get("auth:user:id:" + userInfo.getId());
                     } catch (Exception e) {
                         log.error("get catch error");
                     }

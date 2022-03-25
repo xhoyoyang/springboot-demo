@@ -1,11 +1,11 @@
 package com.springboot.demo.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.springboot.demo.common.entity.BaseEntity;
 import com.springboot.demo.common.enums.UserTypeEnum;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @TableName("user")
 @Data

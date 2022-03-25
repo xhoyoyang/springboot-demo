@@ -2,7 +2,7 @@ package com.springboot.demo.exception.defination;
 
 import com.springboot.demo.common.result.RsStatus;
 
-public class DataNotNullException extends RuntimeException{
+public class DataNotNullException extends RuntimeException {
 
 
     public DataNotNullException(String message) {

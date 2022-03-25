@@ -17,14 +17,13 @@ import org.springframework.stereotype.Component;
 public class ApplicationEventTest {
 
 
-
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
     @Test
     public void register() throws InterruptedException {
         log.info("用户注册");
-        applicationEventPublisher.publishEvent(new UserRegisterEvent(this,"张三"));
+        applicationEventPublisher.publishEvent(new UserRegisterEvent(this, "张三"));
     }
 
 

@@ -21,26 +21,26 @@ public class AuthorityHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AuthorityHandler.class);
 
-    public boolean hasPermission(HttpServletRequest request ,Authentication authentication){
+    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
 
         LOGGER.debug("check permission");
-        boolean isAllowed = false ;
+        boolean isAllowed = false;
 
         Object userInfo = authentication.getPrincipal();
 
-        if(userInfo instanceof UserDetails) {
+        if (userInfo instanceof UserDetails) {
             Set<String> urls = new HashSet<>();
             // TODO: 2021/3/4 you have to set permission url with users
             List<? extends GrantedAuthority> authorities = ((UserDetails) userInfo).getAuthorities().stream().collect(Collectors.toList());
 
             AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-            LOGGER.info("authorities:{}",authentication.getAuthorities());
+            LOGGER.info("authorities:{}", authentication.getAuthorities());
 
 
             //验证权限
             for (GrantedAuthority item : authorities) {
-                if(new AntPathMatcher().match(item.toString(),StringUtils.replaceOnce(request.getRequestURI(),request.getContextPath(),""))){
+                if (new AntPathMatcher().match(item.toString(), StringUtils.replaceOnce(request.getRequestURI(), request.getContextPath(), ""))) {
                     isAllowed = true;
                 }
             }
@@ -56,8 +56,6 @@ public class AuthorityHandler {
 
         return true;
     }
-
-
 
 
 }

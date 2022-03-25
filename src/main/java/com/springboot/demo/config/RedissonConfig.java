@@ -22,9 +22,9 @@ public class RedissonConfig {
      */
     @Bean
     @ConditionalOnProperty(name = "spring.redis.host")
-    public Redisson redisson(){
+    public Redisson redisson() {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://"+redisProperties.getHost()+":"+redisProperties.getPort()).setDatabase(0);
+        config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort()).setDatabase(0);
         return (Redisson) Redisson.create(config);
     }
 }

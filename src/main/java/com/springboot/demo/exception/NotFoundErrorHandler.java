@@ -21,8 +21,8 @@ public class NotFoundErrorHandler {
     private final static Logger logger = LoggerFactory.getLogger(NotFoundErrorHandler.class);
 
     @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer(){
-        return  (factory -> {
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+        return (factory -> {
             ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404");
             factory.addErrorPages(errorPage404);
         });
@@ -30,7 +30,7 @@ public class NotFoundErrorHandler {
 
 
     @GetMapping("/404")
-    public Rs notFound(){
+    public Rs notFound() {
 
         return Rs.error(RsStatus.NOT_FOUND);
     }

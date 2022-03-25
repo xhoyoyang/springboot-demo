@@ -3,8 +3,6 @@ package com.springboot.demo.controller.request;
 import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -15,7 +13,7 @@ import java.util.List;
 public class RoleRequest {
 
     @ApiModelProperty("id,修改时不能为空")
-    @NotNull(message = "id cant not be null",groups = {Update.class})
+    @NotNull(message = "id cant not be null", groups = {Update.class})
     private Integer id;
 
     @ApiModelProperty("角色名称")

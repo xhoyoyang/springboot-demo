@@ -34,108 +34,115 @@ public class GlobalExceptionHandler {
 
     /**
      * 参数校验,method params
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({ValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object validationException(ValidationException ex){
-        ConstraintViolationException errors = (ConstraintViolationException)ex;
+    public Object validationException(ValidationException ex) {
+        ConstraintViolationException errors = (ConstraintViolationException) ex;
         Set<ConstraintViolation<?>> alidationvs = errors.getConstraintViolations();
         List<String> list = new ArrayList<>();
-        alidationvs.forEach(item->{
+        alidationvs.forEach(item -> {
             list.add(item.getMessage());
         });
-        logger.error(ex.getMessage(),ex);
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.BAD_REQUEST).setMsg(list.toString());
     }
 
     /**
      * 参数校验
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object methodArgumentNotValidException(MethodArgumentNotValidException ex){
+    public Object methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
         List<String> list = new ArrayList<>();
-        errors.forEach(item->{
+        errors.forEach(item -> {
             list.add(item.getDefaultMessage());
         });
-        logger.error(ex.getMessage(),ex);
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.BAD_REQUEST).setMsg(list.toString());
     }
 
     /**
      * 未传入json参数，request body
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object httpMessageNotReadableException(HttpMessageNotReadableException ex){
-        logger.error(ex.getMessage(),ex);
+    public Object httpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.BAD_REQUEST);
     }
 
     /**
      * method not allowed
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public Object httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex){
-        logger.error(ex.getMessage(),ex);
+    public Object httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.METHOD_NOT_ALLOWED);
     }
 
 
     /**
      * 错误凭证
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({CredentialsExpiredException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Object CredentialsExpiredException(Exception ex){
-        logger.error(ex.getMessage(),ex);
+    public Object CredentialsExpiredException(Exception ex) {
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.ERROR);
     }
 
 
     /**
      * 自定义异常
+     *
      * @param ex
      * @return
      */
-    @ExceptionHandler({DataNotExistException.class,DataExistException.class,DataNotNullException.class,InfoException.class})
+    @ExceptionHandler({DataNotExistException.class, DataExistException.class, DataNotNullException.class, InfoException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Object deninationException(Exception ex){
-        logger.error(ex.getMessage(),ex);
-        if(ex instanceof DataNotExistException){
+    public Object deninationException(Exception ex) {
+        logger.error(ex.getMessage(), ex);
+        if (ex instanceof DataNotExistException) {
             return Rs.error(RsStatus.DATA_NOT_EXIST).setMsg(ex.getLocalizedMessage());
-        }else if(ex instanceof DataExistException){
+        } else if (ex instanceof DataExistException) {
             return Rs.error(RsStatus.DATA_EXIST).setMsg(ex.getLocalizedMessage());
-        }else if (ex instanceof DataNotNullException){
+        } else if (ex instanceof DataNotNullException) {
             return Rs.error(RsStatus.DATA_NOt_NULL).setMsg(ex.getLocalizedMessage());
-        }else if (ex instanceof InfoException){
+        } else if (ex instanceof InfoException) {
             return Rs.error(RsStatus.OPERATOR_ERROR).setMsg(ex.getLocalizedMessage());
-        }else {
+        } else {
             return Rs.error(RsStatus.ERROR);
         }
     }
 
     /**
      * 其他异常
+     *
      * @param ex
      * @return
      */
     @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Object exception(Exception ex){
-        logger.error(ex.getMessage(),ex);
+    public Object exception(Exception ex) {
+        logger.error(ex.getMessage(), ex);
         return Rs.error(RsStatus.ERROR);
     }
 

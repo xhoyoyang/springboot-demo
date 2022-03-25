@@ -1,8 +1,8 @@
 package com.springboot.demo;
 
+import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
-import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -31,7 +31,7 @@ class DemoApplicationTests {
     @Autowired
     private MenuService menuService;
 
-    private ThreadPoolExecutor pool = new ThreadPoolExecutor(10,10,0l, TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+    private ThreadPoolExecutor pool = new ThreadPoolExecutor(10, 10, 0l, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     @Test
     void contextLoads() {
@@ -40,26 +40,26 @@ class DemoApplicationTests {
     }
 
     @Test
-    void redisTest(){
-        this.redisTemplate.opsForValue().set("test","test", Duration.ofMinutes(10L));
+    void redisTest() {
+        this.redisTemplate.opsForValue().set("test", "test", Duration.ofMinutes(10L));
     }
 
     @Test
-    void passwordTest(){
+    void passwordTest() {
         String pass = "123qwe";
         System.out.println(DigestUtils.md5Hex(pass));
     }
 
     @Test
     void createUserTest() throws InterruptedException {
-        while (true){
+        while (true) {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
                     User user = new User();
-                    user.setUserAccount(new Date().getTime()+"");
+                    user.setUserAccount(new Date().getTime() + "");
                     user.setUserType(UserTypeEnum.admin);
-                    user.setUserName(new Date().getTime()+"");
+                    user.setUserName(new Date().getTime() + "");
                     user.setUserMobile("15812345678");
                     user.setUserEmail("123@qq.com");
                     userMapper.insert(user);
@@ -70,7 +70,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    void updateUserTest(){
+    void updateUserTest() {
         /*UpdateWrapper<UserDo> update = new UpdateWrapper<>();
         update.eq("id",1);
         update.set("user_type",2);
@@ -87,7 +87,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    void deleteUserTest(){
+    void deleteUserTest() {
 
         User user = new User();
         user.setId(7);
@@ -96,7 +96,7 @@ class DemoApplicationTests {
     }
 
     @Test
-    void insertUsaer(){
+    void insertUsaer() {
         User user = new User();
         user.setUserName("lisi");
         user.setUserAccount("lisi");
@@ -111,17 +111,17 @@ class DemoApplicationTests {
     }
 
     @Test
-    void menuTest(){
+    void menuTest() {
 
         this.menuService.listTree();
     }
 
     @Test
-    void logTest(){
-        log.debug("这是：{}日志","debug");
-        log.info("这是：{}日志","INFO");
-        log.warn("这是：{}日志","warn");
-        log.error("这是：{}日志","error");
+    void logTest() {
+        log.debug("这是：{}日志", "debug");
+        log.info("这是：{}日志", "INFO");
+        log.warn("这是：{}日志", "warn");
+        log.error("这是：{}日志", "error");
     }
 
 
