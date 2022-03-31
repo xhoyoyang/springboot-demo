@@ -72,6 +72,7 @@ public class UserService implements UserDetailsService {
      * @param request
      * @return
      */
+    @Cacheable()
     public List<UserVo> listByPage(UserQueryRequest request) {
         //
         LambdaQueryWrapper<User> query = new QueryWrapper<User>().lambda();

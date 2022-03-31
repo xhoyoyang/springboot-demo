@@ -3,10 +3,12 @@ package com.springboot.demo.common.entity;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Data
+@ToString
 public class BaseParams {
 
     @ApiModelProperty("当前页")
@@ -16,6 +18,7 @@ public class BaseParams {
     private Integer pageSize = 10;
 
     @ApiModelProperty(hidden = true)
+    @ToString.Exclude
     private Page page;
 
     @ApiModelProperty("开始时间")

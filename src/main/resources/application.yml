@@ -1,5 +1,5 @@
 server:
-  port: ${random.int[10000,20000]}
+  port: ${server.port:random.int[10000,20000]}
   servlet:
     context-path: /demo
 spring:
