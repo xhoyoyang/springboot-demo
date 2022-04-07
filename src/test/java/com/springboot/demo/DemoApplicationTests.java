@@ -4,12 +4,18 @@ import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
 import com.springboot.demo.service.MenuService;
+import com.springboot.demo.strategy.OrderStrategy;
+import com.springboot.demo.strategy.OrderStrategyService;
+import com.springboot.demo.util.SpringUtil;
+import com.springboot.demo.vo.OrderInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,7 +24,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
+@ComponentScan("com.springboot.demo")
+@Component
 @Slf4j
 class DemoApplicationTests {
 
@@ -122,6 +130,16 @@ class DemoApplicationTests {
         log.info("这是：{}日志", "INFO");
         log.warn("这是：{}日志", "warn");
         log.error("这是：{}日志", "error");
+    }
+
+    @Test
+    public void strategyTest(){
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setId(1);
+        orderInfo.setType("pcOrder");
+        OrderStrategy orderStrategy = SpringUtil.getBean(OrderStrategy.class);
+        OrderStrategyService orderStrategyService = orderStrategy.getResource(orderInfo);
+        orderStrategyService.order(orderInfo);
     }
 
 

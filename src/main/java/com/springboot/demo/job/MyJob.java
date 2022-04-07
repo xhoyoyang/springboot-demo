@@ -1,5 +1,7 @@
 package com.springboot.demo.job;
 
+import com.springboot.demo.dao.UserMapper;
+import com.springboot.demo.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
@@ -20,8 +22,8 @@ public class MyJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         String now = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
-        //UserMapper mapper = SpringUtil.getBean(UserMapper.class);
-//        log.info("开始执行myJob: {}", mapper.selectById(1).toString());
-        log.info("开始执行myJob: {}", now);
+        UserMapper mapper = SpringUtil.getBean(UserMapper.class);
+        log.info("开始执行myJob: {}", mapper.selectById(1).toString());
+//        log.info("开始执行myJob: {}", now);
     }
 }
