@@ -118,10 +118,17 @@
             <version>1.18.20</version>
         </dependency>
 
+        <!--日志接入elk-->
         <dependency>
             <groupId>net.logstash.logback </groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>5.3</version>
+        </dependency>
+
+        <!-- es -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
         <!-- swagger -->

@@ -32,6 +32,7 @@ CREATE TABLE `menu`
     `create_user` varchar(64)  NOT NULL DEFAULT '',
     `update_time` datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `update_user` varchar(64)  NOT NULL DEFAULT '',
+    `deleted`   tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -48,6 +49,7 @@ CREATE TABLE `role`
     `create_user` varchar(64) NOT NULL DEFAULT '',
     `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `update_user` varchar(64) NOT NULL DEFAULT '',
+    `deleted`   tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -64,6 +66,7 @@ CREATE TABLE `role_menu`
     `create_user` varchar(64) NOT NULL DEFAULT '',
     `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `update_user` varchar(64) NOT NULL DEFAULT '',
+    `deleted`   tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -80,11 +83,11 @@ CREATE TABLE `user`
     `user_mobile`   varchar(11)                                                  NOT NULL DEFAULT '',
     `user_email`    varchar(64)                                                  NOT NULL DEFAULT '',
     `user_password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-    `flag`          int                                                          NOT NULL DEFAULT '1',
     `create_time`   datetime                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `create_user`   varchar(64)                                                  NOT NULL DEFAULT '',
     `update_time`   datetime                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `update_user`   varchar(64)                                                  NOT NULL DEFAULT '',
+    `deleted`   tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     KEY             `id` (`id`) USING BTREE,
     KEY             `flag` (`flag`) USING BTREE,
@@ -104,6 +107,7 @@ CREATE TABLE `user_role`
     `create_user` varchar(64) NOT NULL DEFAULT '',
     `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `update_user` varchar(64) NOT NULL DEFAULT '',
+    `deleted`   tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

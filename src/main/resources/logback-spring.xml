@@ -97,7 +97,7 @@
     <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
-        <appender-ref ref="logstash"/>
+        <!--<appender-ref ref="logstash"/>-->
     </root>
 
 </configuration>
