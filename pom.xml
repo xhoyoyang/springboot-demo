@@ -168,6 +168,14 @@
 
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>aliyuan</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+
 
     <build>
         <plugins>
