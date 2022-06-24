@@ -9,5 +9,5 @@ ENV DATAPATH /data
 # 挂载/data目录到主机
 VOLUME $DATAPATH
 # 启动容器时执行
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/ddocker.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
 EXPOSE 8080
