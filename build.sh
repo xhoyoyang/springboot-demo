@@ -1,7 +1,7 @@
 #!/bin/bash
-read -p "请输入版本号: ' version
+read -p "请输入版本号: " version
 
-echo "start git pull""
+echo "start git pull"
 
 git pull
 
