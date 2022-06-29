@@ -18,8 +18,8 @@ spring:
   #    url: jdbc:mysql://192.168.50.148:3306/user_test?useUnicode=true&characterEncoding=utf8
   redis:
 #    host: www.xhoyoyang.top
-    host: 192.168.50.100
-    port: 16379
+    host: 192.168.50.10
+    port: 30065
     connect-timeout: 5000
     timeout: 3000
     lettuce:
