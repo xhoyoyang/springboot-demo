@@ -9,7 +9,7 @@ echo "版本号为：" $version
 
 echo "start maven build"
 
-mvn clean package -f springboot-demo/pom.xml
+mvn clean package
 
 echo "start docker build"
 
@@ -20,3 +20,5 @@ echo "start docker push"
 docker login 192.168.50.100:1180 -u admin -p Harbor12345
 
 docker push 192.168.50.100:1180/watson/springboot-demo:$version
+
+echo "successful"
