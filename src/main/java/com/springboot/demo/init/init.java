@@ -5,10 +5,12 @@ import cn.hutool.core.lang.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by huiyang on 2022-06-29
  */
+@Component
 public class init implements CommandLineRunner {
 
     @Autowired
