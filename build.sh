@@ -5,17 +5,15 @@ echo "start git pull"
 
 git pull
 
-echo "版本号为：" $version
-
-echo "start maven build"
+echo "start maven build\n"
 
 mvn clean package
 
-echo "start docker build"
+echo "start docker build\n"
 
 docker build -t 192.168.50.100:1180/watson/springboot-demo:$version .
 
-echo "start docker push"
+echo "start docker push\n"
 
 docker login 192.168.50.100:1180 -u admin -p Harbor12345
 
