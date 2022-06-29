@@ -1,5 +1,10 @@
 #!/bin/bash
 read -p "请输入版本号: " version
+
+echo "start git pull"
+
+git pull
+
 echo "版本号为：" $version
 
 echo "start maven build"
