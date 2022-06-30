@@ -5,7 +5,7 @@ echo "start git pull"
 
 git pull
 
-echo "start maven clean package"
+echo "start maven build"
 
 mvn clean package
 

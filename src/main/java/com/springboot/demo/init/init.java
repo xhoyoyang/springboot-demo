@@ -23,9 +23,8 @@ public class init implements CommandLineRunner {
 
         while (true){
             log.info(DateUtil.now());
-
             redisTemplate.opsForValue().set(UUID.fastUUID().toString(true), DateUtil.now());
-            Thread.sleep(1000);
+            Thread.sleep(10);
         }
     }
 }
