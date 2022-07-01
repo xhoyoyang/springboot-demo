@@ -1,5 +1,9 @@
 #!/bin/bash
-read -p "请输入版本号: " version
+#read -p "请输入版本号: " version
+
+version=$(cat /proc/sys/kernel/random/uuid | cksum | awk -F ' ' '{print $1}')
+
+echo "build version:"$version
 
 echo "start git pull"
 
