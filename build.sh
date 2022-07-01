@@ -5,7 +5,7 @@ version=$(cat /proc/sys/kernel/random/uuid | cksum | awk -F ' ' '{print $1}')
 
 echo "build version:"$version
 
-echo "start git pull"
+echo "\nstart git pull\n"
 
 git pull
 
@@ -32,5 +32,9 @@ curl -X PUT \
     -H "Cookie: KuboardUsername=admin; KuboardAccessKey=yx4wwakfd4xp.izddjf4fty65yd8m4i6ehwyf3xwezmik" \
     -d '{"kind":"deployments","namespace":"default","name":"springboot-demo","images":{"192.168.50.100:1180/watson/springboot-demo":"192.168.50.100:1180/watson/springboot-demo:'$version'"}}' \
     "192.168.50.10:30080/kuboard-api/cluster/default/kind/CICDApi/admin/resource/updateImageTag"
+
+echo "docker remove image"
+
+docker rmi 192.168.50.100:1180/watson/springboot-demo:$version
 
 echo 'successful'
