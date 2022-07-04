@@ -30,7 +30,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <!--            <FileNamePattern>${logDir}/%d{yyyyMMdd}/log.%d{yyyy-MM-dd}.log</FileNamePattern>-->
-            <FileNamePattern>${logDir}/%d{yyyyMMdd}/${appName}-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <FileNamePattern>${logDir}/${appName}/${appName}-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!--日志文件保留天数-->
             <maxHistory>7</maxHistory>
             <maxFileSize>10MB</maxFileSize>
