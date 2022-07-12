@@ -1,6 +1,7 @@
 package com.springboot.demo.config;
 
 
+import cn.hutool.core.net.Ipv4Util;
 import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,5 +27,6 @@ public class RedissonConfig {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort()).setDatabase(0);
         return (Redisson) Redisson.create(config);
+        Ipv4Util.get
     }
 }

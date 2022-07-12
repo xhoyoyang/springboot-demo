@@ -2,16 +2,14 @@ package com.springboot.demo.config;
 
 import com.springboot.demo.job.MyJob;
 import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 
-@Configuration
+//@Configuration
 public class QuartzConfig {
 
     private static final String ID = "SUMMERDAY";
 
-    @Bean
+    //@Bean
     public JobDetail myJobDetail() {
         return JobBuilder.newJob(MyJob.class)
                 .withIdentity(ID + " 01")
@@ -19,7 +17,7 @@ public class QuartzConfig {
                 .build();
     }
 
-    @Bean
+    //@Bean
     public Trigger myTrigger() {
         // 简单的调度计划的构造器
         //SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).repeatForever();

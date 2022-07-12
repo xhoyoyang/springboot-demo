@@ -1,11 +1,10 @@
 package com.springboot.demo.init;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,13 +17,18 @@ public class init implements CommandLineRunner {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
+
     @Override
     public void run(String... args) throws Exception {
 
-        while (true){
-            log.info(DateUtil.now());
-            redisTemplate.opsForValue().set(UUID.fastUUID().toString(true), DateUtil.now());
-            Thread.sleep(10);
-        }
+       /* while (true){
+
+            //redisTemplate.opsForValue().set(UUID.fastUUID().toString(true), DateUtil.now());
+            this.kafkaTemplate.send("topic", UUID.fastUUID().toString(true));
+            Thread.sleep(100);
+        }*/
     }
+
 }
