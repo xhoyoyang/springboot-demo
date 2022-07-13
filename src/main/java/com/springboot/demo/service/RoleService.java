@@ -39,16 +39,16 @@ public class RoleService {
     private UserRoleMapper userRoleMapper;
 
 
-    public List<Role> listByPage(RoleQueryRequest request) {
+    public Page<Role> listByPage(RoleQueryRequest request) {
 
         LambdaQueryWrapper<Role> query = new LambdaQueryWrapper<>();
         if (StringUtils.isNotBlank(request.getRoleName())) {
             query.like(Role::getRoleName, request.getRoleName());
         }
 
-        Page<Role> page = this.roleMapper.selectPage(request.getPage(), query);
-        request.setPage(page);
-        return page.getRecords();
+        Page<Role> page = this.roleMapper.selectPage(new Page<>(request.getPageNum(), request.getPageSize()), query);
+
+        return page;
 
     }
 

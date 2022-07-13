@@ -25,7 +25,7 @@ public class RoleController {
     public Rs listByPage(@Validated @RequestBody RoleQueryRequest request) {
 
         this.roleService.listByPage(request);
-        return Rs.ok(request.getPage());
+        return Rs.ok(this.roleService.listByPage(request));
 
     }
 

@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum UserTypeEnum {
 
+    /**
+     * user type
+     */
     admin(1, "管理员"),
     user(2, "普通用户");
 

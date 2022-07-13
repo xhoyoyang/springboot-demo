@@ -32,7 +32,8 @@ public class CacheConfig extends CachingConfigurerSupport {
 
         // 配置序列化（解决乱码的问题）
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofDays(1))
+//                .entryTtl(Duration.ofDays(1))
+                .entryTtl(Duration.ofMinutes(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
                 .disableCachingNullValues();
@@ -53,7 +54,7 @@ public class CacheConfig extends CachingConfigurerSupport {
                 sb.append(o.getClass().getName());
                 sb.append(":" + method.getName());
                 for (Object obj : objects) {
-                    sb.append(obj.toString());
+                    sb.append(":").append(obj.toString());
                 }
                 return sb.toString();
             }

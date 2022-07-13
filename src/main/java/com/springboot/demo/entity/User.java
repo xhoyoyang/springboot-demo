@@ -1,7 +1,6 @@
 package com.springboot.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.springboot.demo.common.entity.BaseEntity;
 import com.springboot.demo.common.enums.UserTypeEnum;
@@ -24,7 +23,5 @@ public class User extends BaseEntity {
 
     private String userPassword;
 
-    @TableLogic()
-    private Integer flag;
 
 }

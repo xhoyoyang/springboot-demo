@@ -23,6 +23,9 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
         // 起始版本 3.3.0(推荐使用)
         this.strictInsertFill(metaObject, "createUser", String.class, AuthorizationUtil.currentUser() == null ? "system" : AuthorizationUtil.currentUser().getUserAccount());
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+
+        this.strictInsertFill(metaObject, "updateUser", String.class, AuthorizationUtil.currentUser() == null ? "system" : AuthorizationUtil.currentUser().getUserAccount());
+        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
     }
 
     @Override

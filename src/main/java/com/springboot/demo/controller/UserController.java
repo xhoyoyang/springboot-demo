@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -37,8 +36,8 @@ public class UserController {
     @ApiOperation("分页查询用户信息")
     @PostMapping("/listPage")
     public Rs<Page<UserVo>> list(@Validated @RequestBody UserQueryRequest request) {
-        List<UserVo> userVos = this.userService.listByPage(request);
-        return Rs.ok(request.getPage().setRecords(userVos));
+        Page page = this.userService.listByPage(request);
+        return Rs.ok(page);
     }
 
     @ApiOperation("新增用户")

@@ -17,6 +17,7 @@ import com.springboot.demo.exception.defination.DataNotExistException;
 import com.springboot.demo.exception.defination.InfoException;
 import com.springboot.demo.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.springframework.beans.BeanUtils;
@@ -73,23 +74,26 @@ public class UserService implements UserDetailsService {
      * @return
      */
     @Cacheable()
-    public List<UserVo> listByPage(UserQueryRequest request) {
+    public Page<UserVo> listByPage(UserQueryRequest request) {
         //
         LambdaQueryWrapper<User> query = new QueryWrapper<User>().lambda();
-        query.like(User::getUserName, request.getUserName());
+        if(StringUtils.isNotBlank(request.getUserName())){
+            query.like(User::getUserName, request.getUserName());
+        }
 
-        Page<User> page = userMapper.selectPage(request.getPage(), query);
-        List<UserVo> users = new ArrayList<>(page.getRecords().size());
+        Page<User> page = userMapper.selectPage(new Page<>(request.getPageNum(),request.getPageSize()), query);
+        Page<UserVo> userVoPage = new Page<>(page.getCurrent(),page.getSize(),page.getTotal());
+        List<UserVo> userVos = new ArrayList<>(page.getRecords().size());
         page.getRecords().forEach(item -> {
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(item, userVo);
             //用户角色
             List<String> roles = this.roleMapper.findRolesByUserId(userVo.getId()).stream().map(Role::getRoleName).collect(Collectors.toList());
             userVo.setRoleNames(roles);
-            users.add(userVo);
+            userVos.add(userVo);
         });
-        request.setPage(page);
-        return users;
+        userVoPage.setRecords(userVos);
+        return userVoPage;
     }
 
 

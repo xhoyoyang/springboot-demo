@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
+
 public class Rs<T> implements Serializable {
 
     private Integer code;
