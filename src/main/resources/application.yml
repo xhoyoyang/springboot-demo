@@ -58,10 +58,13 @@ spring:
       compression-type: gzip
     consumer:
       group-id: 1001
-      auto-offset-reset: latest
+      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       max-poll-records: 100
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate
 #  elasticsearch:
 #    rest:
 #      uris: http://www.xhoyoyang.top:19200
