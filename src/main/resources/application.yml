@@ -52,16 +52,17 @@ spring:
   kafka:
     bootstrap-servers:  101.34.34.194:31062
     producer:
-      acks: all
+      acks: 1
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      compression-type: gzip
+      compression-type: zstd
+      retries: 1
     consumer:
-      group-id: 1001
-      auto-offset-reset: earliest
+      group-id: springboot-demo4
+      auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      max-poll-records: 100
+      max-poll-records: 5
       enable-auto-commit: false
     listener:
       ack-mode: manual_immediate

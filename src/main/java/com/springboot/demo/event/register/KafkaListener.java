@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class KafkaListener {
 
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "topic")
+    @org.springframework.kafka.annotation.KafkaListener(topics = "topic1")
     public void msg(ConsumerRecord<String,String> record, Acknowledgment acknowledgment){
         log.info("received kafka message ：{}:{}",record.key(),record.value());
         acknowledgment.acknowledge();

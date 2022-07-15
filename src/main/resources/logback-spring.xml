@@ -55,13 +55,13 @@
 
 
     <!--输出到logstash的appender-->
-    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        &lt;!&ndash;可以访问的logstash日志收集端口&ndash;&gt;
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!--可以访问的logstash日志收集端口-->
         <destination>
-            www.xhoyoyang.top:14560
+            101.34.34.194:30142
         </destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>-->
+    </appender>
 
 
     <!--
