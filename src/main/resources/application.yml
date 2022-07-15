@@ -6,7 +6,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: springboot-demo
+    name: springboot.demo
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
