@@ -5,7 +5,7 @@ version=$(cat /proc/sys/kernel/random/uuid | cksum | awk -F ' ' '{print $1}')
 
 echo "build version:"$version
 
-echo "\nstart git pull\n"
+echo "start git pull"
 
 git pull
 
