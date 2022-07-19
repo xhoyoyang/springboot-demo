@@ -10,7 +10,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: ENC(R51Nsq652fRd9AHDZHZfDQ==)
+    password: ENC(sd0fJYTDsQ3ZHPvlFCT03A==)
     url: jdbc:mysql://101.34.34.194:13306/springboot-demo?useUnicode=true&characterEncoding=utf8
 #    url: jdbc:mysql://192.168.50.100:13306/springboot-demo?useUnicode=true&characterEncoding=utf8
     hikari:
