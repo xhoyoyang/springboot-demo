@@ -9,8 +9,8 @@ public enum MenuTypeEnum {
     button(3, "按钮");
 
     @EnumValue
-    private Integer code;
-    private String name;
+    private final Integer code;
+    private final String name;
 
     MenuTypeEnum(Integer code, String name) {
         this.code = code;

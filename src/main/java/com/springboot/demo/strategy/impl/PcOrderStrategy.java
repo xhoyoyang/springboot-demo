@@ -15,7 +15,7 @@ public class PcOrderStrategy implements OrderStrategyService {
 
     @Override
     public void order(OrderInfo orderInfo) {
-      
+
         log.info("pc订单逻辑");
     }
 }

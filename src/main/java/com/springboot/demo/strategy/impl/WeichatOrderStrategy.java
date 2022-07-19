@@ -15,7 +15,7 @@ public class WeichatOrderStrategy implements OrderStrategyService {
 
     @Override
     public void order(OrderInfo orderInfo) {
-      
+
         log.info("微信订单逻辑");
     }
 }

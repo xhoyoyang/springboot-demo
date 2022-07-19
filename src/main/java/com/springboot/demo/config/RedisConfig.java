@@ -11,7 +11,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+
+/**
+ * redis config
+ */
 @Configuration
 public class RedisConfig {
 
@@ -60,7 +63,7 @@ public class RedisConfig {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name = "spring.redis.sentinel.master")
+    @ConditionalOnProperty(name = "spring.redis.mode", havingValue = "sentinel")
     public RedisSentinelConfiguration redisSentinelConnection() {
         RedisSentinelConfiguration config = new RedisSentinelConfiguration();
 
@@ -82,8 +85,7 @@ public class RedisConfig {
      *
      * @return
      */
-    @ConditionalOnProperty(name = "spring.redis.host")
-    @ConditionalOnMissingBean(RedisSentinelConfiguration.class)
+    @ConditionalOnProperty(name = "spring.redis.model", havingValue = "standalone")
     @Bean
     public RedisConfiguration redisConfiguration() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();

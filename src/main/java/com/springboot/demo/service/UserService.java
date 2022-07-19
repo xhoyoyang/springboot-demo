@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @CacheConfig(cacheNames = "user")
 public class UserService implements UserDetailsService {
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Resource
     private UserMapper userMapper;
@@ -77,12 +77,12 @@ public class UserService implements UserDetailsService {
     public Page<UserVo> listByPage(UserQueryRequest request) {
         //
         LambdaQueryWrapper<User> query = new QueryWrapper<User>().lambda();
-        if(StringUtils.isNotBlank(request.getUserName())){
+        if (StringUtils.isNotBlank(request.getUserName())) {
             query.like(User::getUserName, request.getUserName());
         }
 
-        Page<User> page = userMapper.selectPage(new Page<>(request.getPageNum(),request.getPageSize()), query);
-        Page<UserVo> userVoPage = new Page<>(page.getCurrent(),page.getSize(),page.getTotal());
+        Page<User> page = userMapper.selectPage(new Page<>(request.getPageNum(), request.getPageSize()), query);
+        Page<UserVo> userVoPage = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         List<UserVo> userVos = new ArrayList<>(page.getRecords().size());
         page.getRecords().forEach(item -> {
             UserVo userVo = new UserVo();

@@ -18,7 +18,7 @@ public class init implements CommandLineRunner {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
     public void run(String... args) throws Exception {

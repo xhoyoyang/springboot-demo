@@ -146,6 +146,12 @@
             <version>2.1.2</version>
         </dependency>
 
+        <!-- sebsocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!-- swagger -->
         <!--<dependency>
             <groupId>io.springfox</groupId>

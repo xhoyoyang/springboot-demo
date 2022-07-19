@@ -21,5 +21,5 @@ public enum DesensitizationType {
     //密码
     PASSWORD,
     //密钥
-    KEY;
+    KEY
 }

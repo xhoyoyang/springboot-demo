@@ -17,10 +17,10 @@ public class OrderStrategy {
 
     public OrderStrategy(Map<String, OrderStrategyService> strategyMap) {
         this.orderStrategyMap.clear();
-        strategyMap.forEach((k, v)-> this.orderStrategyMap.put(k, v));
+        strategyMap.forEach((k, v) -> this.orderStrategyMap.put(k, v));
     }
 
-    public OrderStrategyService getResource(OrderInfo orderInfo){
+    public OrderStrategyService getResource(OrderInfo orderInfo) {
         return orderStrategyMap.get(orderInfo.getType());
     }
 }

@@ -11,8 +11,8 @@ public enum UserTypeEnum {
     user(2, "普通用户");
 
     @EnumValue
-    private Integer code;
-    private String name;
+    private final Integer code;
+    private final String name;
 
     UserTypeEnum(Integer code, String name) {
         this.code = code;

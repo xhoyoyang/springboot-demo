@@ -8,8 +8,8 @@ public enum FlagEmun {
     f(0, "无效");
 
     @EnumValue
-    private Integer code;
-    private String name;
+    private final Integer code;
+    private final String name;
 
     FlagEmun(Integer code, String name) {
         this.code = code;

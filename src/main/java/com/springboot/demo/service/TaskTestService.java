@@ -29,7 +29,7 @@ public class TaskTestService {
         }
         List<Future<Integer>> futures = pool.invokeAll(tasks);
         StringBuilder sb = new StringBuilder();
-        futures.forEach(item->{
+        futures.forEach(item -> {
             try {
                 sb.append(item.get());
             } catch (InterruptedException e) {
@@ -53,7 +53,7 @@ public class TaskTestService {
         }
         List<Future<Integer>> futures = pool.invokeAll(tasks);
         StringBuilder sb = new StringBuilder();
-        futures.forEach(item->{
+        futures.forEach(item -> {
             try {
                 sb.append(item.get());
             } catch (InterruptedException e) {

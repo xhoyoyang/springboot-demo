@@ -20,8 +20,8 @@ public enum RsStatus {
     ;
 
 
-    private Integer code;
-    private String msg;
+    private final Integer code;
+    private final String msg;
 
     RsStatus(Integer code, String msg) {
         this.code = code;
