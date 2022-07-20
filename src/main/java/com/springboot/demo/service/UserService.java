@@ -23,7 +23,6 @@ import org.redisson.api.RLock;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -54,9 +53,6 @@ public class UserService implements UserDetailsService {
 
     @Resource
     private UserRoleMapper userRoleMapper;
-
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
 
     @Resource
     private Redisson redisson;

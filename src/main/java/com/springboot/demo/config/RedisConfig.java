@@ -63,7 +63,7 @@ public class RedisConfig {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name = "spring.redis.mode", havingValue = "sentinel")
+    @ConditionalOnProperty(name = "spring.redis.model", havingValue = "sentinel")
     public RedisSentinelConfiguration redisSentinelConnection() {
         RedisSentinelConfiguration config = new RedisSentinelConfiguration();
 
