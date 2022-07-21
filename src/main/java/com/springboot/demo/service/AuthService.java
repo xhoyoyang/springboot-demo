@@ -1,5 +1,6 @@
 package com.springboot.demo.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.springboot.demo.controller.auth.UserInfo;
@@ -9,6 +10,7 @@ import com.springboot.demo.dao.UserMapper;
 import com.springboot.demo.entity.User;
 import com.springboot.demo.exception.defination.DataNotExistException;
 import com.springboot.demo.util.JwtUtil;
+import com.springboot.demo.ws.WebSocketHandler;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,6 +35,9 @@ public class AuthService implements UserDetailsService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Resource
+    private WebSocketHandler webSocketHandler;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
@@ -52,7 +57,11 @@ public class AuthService implements UserDetailsService {
             throw new DataNotExistException("用户名或密码错误");
         }
         UserInfo userInfo = this.getUserInfo(user.getId());
-        return JwtUtil.generateToken(userInfo);
+        String token = JwtUtil.generateToken(userInfo);
+
+        //广播消息，用户登录成功
+        webSocketHandler.sendAllMessage(StrUtil.format("用户：[{}]登录成功，token：[{}]",userInfo.getUserAccount(),token));
+        return token;
 
     }
 
