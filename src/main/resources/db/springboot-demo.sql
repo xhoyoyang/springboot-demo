@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : home
+ Source Server         : 50.100
  Source Server Type    : MySQL
  Source Server Version : 80029
- Source Host           : 101.34.34.194:13306
+ Source Host           : 192.168.50.100:13306
  Source Schema         : springboot-demo
 
  Target Server Type    : MySQL
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 14/07/2022 09:59:42
+ Date: 15/04/2023 13:50:14
 */
 
 SET NAMES utf8mb4;
@@ -98,9 +98,7 @@ CREATE TABLE `user`  (
                          `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
                          `update_user` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
                          `deleted` tinyint(1) NOT NULL DEFAULT 0,
-                         PRIMARY KEY (`id`) USING BTREE,
-                         INDEX `id`(`id`) USING BTREE,
-                         INDEX `user_account`(`user_account`) USING BTREE
+                         PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -128,5 +126,28 @@ CREATE TABLE `user_role`  (
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (1, 1, 1, '2022-07-13 06:25:15', '0', '2022-07-13 06:25:15', '0', 0);
+
+-- ----------------------------
+-- Procedure structure for BatchInsert
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `BatchInsert`;
+delimiter ;;
+CREATE PROCEDURE `BatchInsert`(IN initId INT, IN loop_counts INT)
+BEGIN
+    DECLARE Var INT;
+    DECLARE ID INT;
+    SET Var = 0;
+    SET ID = initId;
+    set autocommit=0;
+    WHILE Var < loop_counts DO
+        INSERT INTO `test_user` (`user_id`,`user_name`,`phone`,`lan_id`,`region_id`,`create_time`)
+        VALUES (ID,ID,ID,ID,ID,NOW());
+        SET ID = ID + 1;
+        SET Var = Var + 1;
+END WHILE;
+COMMIT;
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
