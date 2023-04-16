@@ -79,7 +79,7 @@ xxl:
       appname: demo
       address:
       ip: 192.168.50.10
-      port: 30031
+      port: 9999
       logpath: ./
       logretentiondays: 7
 logging:
