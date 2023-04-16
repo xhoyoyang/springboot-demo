@@ -47,8 +47,10 @@ public class Job {
             int count = this.testUserMapper.count();
             if(count > 2000*10000){
                 XxlJobHelper.log("XXL-JOB, databases test_user is done");
+                lock.unlock();
                 return;
             }
+            lock.unlock();
             XxlJobHelper.log("XXL-JOB, start create test_user");
 
             for (int i = 0; i < 100; i++) {
@@ -61,7 +63,6 @@ public class Job {
         }catch (Exception e){
             log.error(e.getMessage(),e);
         }finally {
-            lock.unlock();
             log.info("XXL-JOB, stop create test_user, cust time :{} S",(System.currentTimeMillis()-start)/100);
             XxlJobHelper.log("XXL-JOB, stop create test_user, cust time :{} S",(System.currentTimeMillis()-start)/100);
         }
