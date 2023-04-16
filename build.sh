@@ -23,7 +23,7 @@ docker login 192.168.50.100:1180 -u admin -p Harbor12345
 
 echo "start docker push"
 
-docker push 192.168.50.100:1180/watson/springboot-demo:$version
+docker push 192.168.50.100:1180/watson/springboot-auth:$version
 
 echo "start k8s updateImageTag"
 
