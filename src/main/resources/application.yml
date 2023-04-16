@@ -70,6 +70,18 @@ spring:
 #    rest:
 #      uris: http://www.xhoyoyang.top:19200
 
+xxl:
+  job:
+    admin:
+      addresses: http://192.168.50.10:31181
+    accessToken: default_token
+    executor:
+      appname: demo
+      address:
+      ip:
+      port: 9999
+      logpath: ./
+      logretentiondays: 7
 logging:
   config: classpath:logback-spring.xml
   level:
