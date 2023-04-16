@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.springboot.demo</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>auth</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
