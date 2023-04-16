@@ -78,8 +78,8 @@ xxl:
     executor:
       appname: demo
       address:
-      ip:
-      port: 9999
+      ip: 192.168.50.10
+      port: 30538
       logpath: ./
       logretentiondays: 7
 logging:
