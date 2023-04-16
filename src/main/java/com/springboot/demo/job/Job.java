@@ -6,9 +6,12 @@ import com.springboot.demo.common.enums.UserTypeEnum;
 import com.springboot.demo.dao.TestUserMapper;
 import com.springboot.demo.entity.TestUser;
 import com.springboot.demo.ws.WebSocketHandler;
+import com.xxl.job.core.context.XxlJobContext;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -24,14 +27,26 @@ import java.util.concurrent.TimeUnit;
 public class Job {
 
 
-    @Autowired
+    @Resource
     private TestUserMapper testUserMapper;
+
+    @Resource
+    private Redisson redisson;
 
     /**
      * 1、简单任务示例（Bean模式）
      */
     @XxlJob("demoJobHandler")
     public void demoJobHandler() throws Exception {
+
+        RLock lock = redisson.getLock("auth:test:user:create");
+        lock.lock();
+        int count = this.testUserMapper.count();
+        if(count > 2000*10000){
+            XxlJobHelper.log("XXL-JOB, databases test_user is done");
+            lock.unlock();
+            return;
+        }
 
         long start = System.currentTimeMillis();
         try {
