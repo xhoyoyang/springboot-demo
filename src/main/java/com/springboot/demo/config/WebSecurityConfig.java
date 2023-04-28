@@ -37,12 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
 
     @Bean
-    public GrantedAuthorityDefaults grantedAuthorityDefaults(){
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -60,31 +60,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         http
-            .csrf().disable()//禁用csrf
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//禁用session
-            .and()
-            //.addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-            .authorizeRequests()
-            .antMatchers("/auth/**",
-                    //"/swagger-ui.html",
-                    //"/swagger-ui/**",
-                    "/swagger-resources/**",
-                    "/v3/api-docs/**",
-                    "/doc.html",
-                    "/webjars/**",
-                    "/favicon.ico"
-                    ).permitAll()//无需认证的url
-            .anyRequest()
-            .access("@authorityHandler.hasPermission(request,authentication)")//动态权限控制
-            .and()
-            .formLogin()
-            .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(loginExpireHandler)
-            .accessDeniedHandler(accessDefindHandler)
-            .and().addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()//禁用csrf
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//禁用session
+                .and()
+                //.addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/auth/**",
+                        //"/swagger-ui.html",
+                        //"/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/v3/api-docs/**",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/favicon.ico"
+                ).permitAll()//无需认证的url
+                .anyRequest()
+                .access("@authorityHandler.hasPermission(request,authentication)")//动态权限控制
+                .and()
+                .formLogin()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(loginExpireHandler)
+                .accessDeniedHandler(accessDefindHandler)
+                .and().addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 
-            ;
+        ;
 
     }
 }

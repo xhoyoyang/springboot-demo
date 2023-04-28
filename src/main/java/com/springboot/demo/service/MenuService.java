@@ -6,7 +6,7 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import com.springboot.demo.controller.request.MenuRequest;
 import com.springboot.demo.dao.MenuMapper;
 import com.springboot.demo.entity.Menu;
-import com.springboot.demo.exception.DataNotExistException;
+import com.springboot.demo.exception.defination.DataNotExistException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,36 +22,39 @@ public class MenuService {
 
     /**
      * 新增菜单
+     *
      * @param request
      */
-    public void createMenu(MenuRequest request){
+    public void createMenu(MenuRequest request) {
 
         Menu menu = new Menu();
-        BeanUtils.copyProperties(request,menu);
+        BeanUtils.copyProperties(request, menu);
         this.menuMapper.insert(menu);
 
     }
 
     /**
      * 修改菜单
+     *
      * @param request
      */
-    public void updateMenu(MenuRequest request){
+    public void updateMenu(MenuRequest request) {
 
         //验证菜单是否存在
         Menu menu = this.menuMapper.selectById(request.getId());
         if (null == menu) {
             throw new DataNotExistException("数据不存在");
         }
-        BeanUtils.copyProperties(request,menu);
+        BeanUtils.copyProperties(request, menu);
         this.menuMapper.updateById(menu);
     }
 
     /**
      * 删除菜单
+     *
      * @param id
      */
-    public void deleteMenu(Integer id){
+    public void deleteMenu(Integer id) {
         //验证菜单是否存在
         //Menu menu = this.menuMapper.selectById(id);
 
@@ -60,9 +63,10 @@ public class MenuService {
 
     /**
      * 查询所有菜单树
+     *
      * @return
      */
-    public List<Tree<Integer>> listTree(){
+    public List<Tree<Integer>> listTree() {
 
         //所有菜单
         List<Menu> menus = this.menuMapper.selectList(null);
@@ -87,7 +91,7 @@ public class MenuService {
                     // 扩展属性 ...
                     tree.putExtra("menuType", menu.getMenuType());
                     tree.putExtra("menuUrl", menu.getMenuUrl());
-        });
+                });
 
         //List<Tree<Integer>> trees = TreeUtil.build(treeNodes);
 

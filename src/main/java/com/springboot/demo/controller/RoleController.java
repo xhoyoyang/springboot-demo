@@ -1,9 +1,9 @@
 package com.springboot.demo.controller;
 
 
+import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.controller.request.RoleQueryRequest;
 import com.springboot.demo.controller.request.RoleRequest;
-import com.springboot.demo.common.result.Rs;
 import com.springboot.demo.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,31 +22,31 @@ public class RoleController {
 
     @ApiOperation("分页查询角色信息")
     @PostMapping("/listPage")
-    public Rs listByPage(@Validated @RequestBody RoleQueryRequest request){
+    public Rs listByPage(@Validated @RequestBody RoleQueryRequest request) {
 
         this.roleService.listByPage(request);
-        return Rs.ok(request.getPage());
+        return Rs.ok(this.roleService.listByPage(request));
 
     }
 
 
     @ApiOperation("新增角色")
     @PostMapping("/create")
-    public Rs createRole(@Validated @RequestBody RoleRequest request){
+    public Rs createRole(@Validated @RequestBody RoleRequest request) {
         this.roleService.createRole(request);
         return Rs.ok();
     }
 
     @ApiOperation("修改角色")
     @PostMapping("/update")
-    public Rs updateRole(@Validated @RequestBody RoleRequest request){
+    public Rs updateRole(@Validated @RequestBody RoleRequest request) {
         this.roleService.updateRole(request);
         return Rs.ok();
     }
 
     @ApiOperation("删除角色")
     @GetMapping("/delete/{id}")
-    public Rs deleteRole(@PathVariable("id") Integer id){
+    public Rs deleteRole(@PathVariable("id") Integer id) {
 
         this.roleService.deleteRole(id);
         return Rs.ok();

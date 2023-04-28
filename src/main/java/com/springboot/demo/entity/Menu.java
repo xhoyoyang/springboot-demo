@@ -2,11 +2,9 @@ package com.springboot.demo.entity;
 
 import com.springboot.demo.common.entity.BaseEntity;
 import com.springboot.demo.common.enums.MenuTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class Menu extends BaseEntity {
 
     private Integer parentId;

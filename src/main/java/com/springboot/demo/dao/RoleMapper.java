@@ -12,6 +12,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 用户角色拥有的所有权限
+     *
      * @param userId
      * @return
      */
@@ -20,14 +21,18 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 用户拥有的所有角色
+     * 角色名称
+     *
      * @param userId
      * @return
      */
-    @Select("select r.role_name from user_role u inner join role r on u.role_id = r.id where u.user_id = #{userId}")
-    List<String> findRolesByUserId(Integer userId);
+    @Select("select r.role_name,r.id from user_role u inner join role r on u.role_id = r.id where u.user_id = #{userId}")
+    List<Role> findRolesByUserId(Integer userId);
+
 
     /**
      * 根据角色ID删除角色的所有权限
+     *
      * @param roleId
      */
     @Delete("DELETE from role_menu where role_id = #{roleId}")

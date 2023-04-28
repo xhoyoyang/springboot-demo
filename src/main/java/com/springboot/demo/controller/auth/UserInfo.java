@@ -11,14 +11,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(value = {"authorities"},ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"authorities"}, ignoreUnknown = true)
 public class UserInfo extends User implements UserDetails, Serializable {
 
-    private Set<String> roles;
+    public Set<String> roles;
 
     public UserInfo() {
 
     }
+
 
     public Set<String> getRoles() {
         return roles;
@@ -31,9 +32,9 @@ public class UserInfo extends User implements UserDetails, Serializable {
     //授权信息
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities =new HashSet<>();
-        if(roles!=null && roles.size()>0){
-            roles.stream().forEach(item->{
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        if (roles != null && roles.size() > 0) {
+            roles.stream().forEach(item -> {
                 authorities.add(new SimpleGrantedAuthority(item));
             });
         }

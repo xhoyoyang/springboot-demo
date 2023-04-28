@@ -1,11 +1,9 @@
 package com.springboot.demo.entity;
 
 import com.springboot.demo.common.entity.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class UserRole extends BaseEntity {
 
     private Integer userId;

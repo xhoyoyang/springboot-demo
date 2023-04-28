@@ -1,7 +1,7 @@
 package com.springboot.demo.controller;
 
-import com.springboot.demo.controller.request.MenuRequest;
 import com.springboot.demo.common.result.Rs;
+import com.springboot.demo.controller.request.MenuRequest;
 import com.springboot.demo.service.MenuService;
 import com.springboot.demo.validate.group.Update;
 import io.swagger.annotations.Api;
@@ -22,7 +22,7 @@ public class MenuController {
 
     @ApiOperation("查询菜单树")
     @GetMapping("/listTree")
-    public Rs listTree(){
+    public Rs listTree() {
 
         return Rs.ok(this.menuService.listTree());
     }
@@ -30,7 +30,7 @@ public class MenuController {
 
     @ApiOperation("新增菜单")
     @PostMapping("/create")
-    public Rs createMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request){
+    public Rs createMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request) {
 
         this.menuService.createMenu(request);
         return Rs.ok();
@@ -38,7 +38,7 @@ public class MenuController {
 
     @ApiOperation("修改菜单")
     @PostMapping("/update")
-    public Rs updateMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request){
+    public Rs updateMenu(@Validated({Update.class, Default.class}) @RequestBody MenuRequest request) {
 
         this.menuService.updateMenu(request);
         return Rs.ok();
@@ -46,7 +46,7 @@ public class MenuController {
 
     @ApiOperation("删除菜单")
     @GetMapping("/delete/{id}")
-    public Rs deleteMenu(@PathVariable("id") Integer id){
+    public Rs deleteMenu(@PathVariable("id") Integer id) {
 
         this.menuService.deleteMenu(id);
         return Rs.ok();

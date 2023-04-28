@@ -8,22 +8,13 @@ public enum MenuTypeEnum {
     api(2, "API接口"),
     button(3, "按钮");
 
+    @EnumValue
+    private final Integer code;
+    private final String name;
+
     MenuTypeEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
-    }
-
-    @EnumValue
-    private Integer code;
-
-    private String name;
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public static MenuTypeEnum getByCode(String val) {
@@ -34,5 +25,13 @@ public enum MenuTypeEnum {
             }
         }
         return null;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

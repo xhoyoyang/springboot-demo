@@ -1,11 +1,9 @@
 package com.springboot.demo.controller.request;
 
 import com.springboot.demo.common.entity.BaseParams;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class MenuQueryRequest extends BaseParams {
 
 }

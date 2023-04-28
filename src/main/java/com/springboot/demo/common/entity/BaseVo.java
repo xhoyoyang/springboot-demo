@@ -1,13 +1,11 @@
 package com.springboot.demo.common.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
+@Data
 public class BaseVo {
 
     private Integer id;

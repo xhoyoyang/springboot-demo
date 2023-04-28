@@ -34,7 +34,7 @@ public class EnumValidator implements ConstraintValidator<EnumValidAnnotation, O
                             //    return true;
                             //}
                             String typeName = obj.toString();
-                            if(value.toString().equals(typeName)){
+                            if (value.toString().equals(typeName)) {
                                 return true;
                             }
                         }

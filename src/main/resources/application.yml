@@ -1,22 +1,26 @@
 server:
-  port: 8080
+  port: ${serverPort:8080}
   servlet:
-    context-path: "/demo"
+    context-path: /auth
 spring:
   profiles:
     active: dev
   application:
-    name: springboot-demo
+    name: springboot-auth
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/springboot-demo?useUnicode=true&characterEncoding=utf8
-#    url: jdbc:mysql://192.168.50.148:3306/user_test?useUnicode=true&characterEncoding=utf8
+    password: ENC(sd0fJYTDsQ3ZHPvlFCT03A==)
+    url: jdbc:mysql://192.168.50.100:13306/springboot-demo?useUnicode=true&characterEncoding=utf8
+    hikari:
+      connection-timeout: 3000
+  #    url: jdbc:mysql://192.168.50.148:3306/user_test?useUnicode=true&characterEncoding=utf8
   redis:
-    host: localhost
-    port: 6379
-    connect-timeout: 5000
+#    host: www.xhoyoyang.top
+    model: standalone
+    host: 192.168.50.10
+    port: 30656
+    connect-timeout: 3000
     timeout: 3000
     lettuce:
       pool:
@@ -24,23 +28,70 @@ spring:
         max-idle: 8 #最大空闲数
         max-wait: -1  #最大阻塞等待时间
         min-idle: 2 #最小空闲数
-    sentinel:
-      master: master
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: always
     locale: zh_CN
+#  quartz:
+#    job-store-type: jdbc # Job 存储器类型。默认为 memory 表示内存，可选 jdbc 使用数据库。
+#    auto-startup: true # Quartz 是否自动启动
+#    startup-delay: 0 # 延迟 N 秒启动
+#    wait-for-jobs-to-complete-on-shutdown: true # 应用关闭时，是否等待定时任务执行完成。默认为 false ，建议设置为 true
+#    overwrite-existing-jobs: false # 是否覆盖已有 Job 的配置
+#    properties: # 添加 Quartz Scheduler 附加属性
+#      org:
+#        quartz:
+#          threadPool:
+#            threadCount: 2 # 线程池大小。默认为 10 。
+#            threadPriority: 5 # 线程优先级
+#            class: org.quartz.simpl.SimpleThreadPool # 线程池类型
+    jdbc:
+      initialize-schema: never
+  kafka:
+    bootstrap-servers:  101.34.34.194:31062
+    producer:
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      compression-type: zstd
+      retries: 1
+    consumer:
+      group-id: springboot-demo4
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 5
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate
+#  elasticsearch:
+#    rest:
+#      uris: http://www.xhoyoyang.top:19200
+
+xxl:
+  job:
+    admin:
+      addresses: http://192.168.50.10:31181
+    accessToken: default_token
+    executor:
+      appname: demo
+      address:
+      ip: 192.168.50.10
+      port: 9999
+      logpath: ./
+      logretentiondays: 7
 logging:
-#  level:
-#    com:
-#      springboot:
-#        demo: debug
   config: classpath:logback-spring.xml
+  level:
+    root: info
+logstash:
+  host: logstash:4560
 mybatis-plus:
   type-enums-package: com.springboot.demo
   global-config:
     db-config:
-      logic-delete-field: flag  # 全局逻辑删除的实体字段名
-      logic-delete-value: 0 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 1 # 逻辑未删除值(默认为 0)
+      logic-delete-field: deleted  # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

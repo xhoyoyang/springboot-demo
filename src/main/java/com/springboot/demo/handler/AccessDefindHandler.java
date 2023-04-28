@@ -28,8 +28,8 @@ public class AccessDefindHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
 
-       LOGGER.debug("access denied");
-        Map<String,Object> map = new HashMap<>();
+        LOGGER.debug("access denied");
+        Map<String, Object> map = new HashMap<>();
         httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
         httpServletResponse.setContentType(Media.MEDIA_TYPE_JSON);
         PrintWriter out = httpServletResponse.getWriter();

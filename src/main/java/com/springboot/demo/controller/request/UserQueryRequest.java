@@ -3,11 +3,11 @@ package com.springboot.demo.controller.request;
 
 import com.springboot.demo.common.entity.BaseParams;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
 
-@Setter
-@Getter
+@Data
+@ToString(callSuper = true)
 public class UserQueryRequest extends BaseParams {
 
     @ApiModelProperty("用户名")

@@ -1,17 +1,12 @@
 package com.springboot.demo.common.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
+@Data
 public class BaseEntity {
 
     @TableId(type = IdType.AUTO)
@@ -33,7 +28,7 @@ public class BaseEntity {
     @TableField(fill = FieldFill.UPDATE)
     private String updateUser;
 
-    @ApiModelProperty(hidden = true)
-    private Integer flag;
+    @TableLogic()
+    private Integer deleted;
 
 }

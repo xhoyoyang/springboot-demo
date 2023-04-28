@@ -38,8 +38,6 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build();
     }*/
-
-
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)

@@ -30,16 +30,16 @@ public class LoginExpireHandler implements AuthenticationEntryPoint {
 
         LOGGER.info("check authentication failed");
         Rs rs = null;
-        if(e instanceof UsernameNotFoundException){
+        if (e instanceof UsernameNotFoundException) {
             LOGGER.info("user not found");
-            rs=Rs.error(RsStatus.LOGIN_FAIL);
+            rs = Rs.error(RsStatus.LOGIN_FAIL);
             //httpServletResponse.setStatus(HttpStatus.PAYMENT_REQUIRED.value());//402
-        }else if(e instanceof BadCredentialsException){
+        } else if (e instanceof BadCredentialsException) {
             LOGGER.debug("Bad Credentials");
-            rs=Rs.error(RsStatus.Bad_Credentials);
+            rs = Rs.error(RsStatus.Bad_Credentials);
             //httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }else {
-            rs=Rs.error(RsStatus.UNAUTHORIZED);
+        } else {
+            rs = Rs.error(RsStatus.UNAUTHORIZED);
             //httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
