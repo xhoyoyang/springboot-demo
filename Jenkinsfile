@@ -22,14 +22,16 @@ pipeline {
 		stage('Deploy') {
             steps {
 		echo '[INFO] 开始部署服务...'
-                sh "docker run -d --name auth -p 18080:8080 watson/auth:0.0.1"
+		sh 'sudo docker stop auth'
+		sh 'sudo docker rm auth'
+                sh 'sudo docker run -d --name auth -p 18080:8080 watson/auth:0.0.1'
             }
         }
     }
-	 post {
-        always {
-            echo '[INFO] 清理工作区...'
-            cleanWs()
-        }
-    }
+ post {
+	always {
+	    echo '[INFO] 清理工作区...'
+	    cleanWs()
+	}
+	}
 }
