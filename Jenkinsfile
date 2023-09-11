@@ -13,6 +13,14 @@ pipeline {
                 sh '/usr/local/maven/bin/mvn clean package -Dmaven.skip.test=true'
             }
         }
+        stage('Stop container') {
+                    steps {
+                        echo '[INFO] 开始停止服务...'
+                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
+                            sh 'sudo docker stop auth'
+                        }
+                    }
+                }
         stage('Build image') {
             steps {
                 echo '[INFO] 开始编译docker镜像...'
