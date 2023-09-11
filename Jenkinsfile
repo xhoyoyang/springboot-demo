@@ -30,8 +30,7 @@ pipeline {
     }
     post {
         always {
-            echo '[INFO] 清理工作区...'
-            cleanWs()
+            echo '[INFO] 部署完成...'
         }
     }
 }
