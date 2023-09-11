@@ -19,6 +19,7 @@ pipeline {
                         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
                             sh 'sudo docker stop auth'
                             sh 'sudo docker rm auth'
+                            sh 'sudo docker rmi auth'
                         }
                     }
                 }
