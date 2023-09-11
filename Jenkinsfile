@@ -16,8 +16,10 @@ pipeline {
         stage('Stop container') {
                     steps {
                         echo '[INFO] 开始停止服务...'
-                        sh 'sudo docker stop auth'
-                        sh 'sudo docker rm auth'
+                        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
+                            sh 'sudo docker stop auth'
+                            sh 'sudo docker rm auth'
+                        }
                     }
                 }
         stage('Build image') {
