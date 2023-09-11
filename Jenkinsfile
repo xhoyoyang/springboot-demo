@@ -1,5 +1,6 @@
 pipeline {
-    agent any stages {
+    agent any
+    stages {
         stage('Git pull') {
             steps {
                 echo '[INFO] 开始拉取代码 ...'
