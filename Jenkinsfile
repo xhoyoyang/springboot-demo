@@ -1,14 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('git checkout') {
+        stage('Git pull') {
             steps {
-                sh label: '', script: 'git checkout main && git pull'
+                echo '开始拉取代码 ...'
+				sh 'git checkout main && git pull'
             }
         }
         stage('mavne build') {
             steps {
-                sh label: '', script: '/usr/local/maven/bin/mvn clean package -Dmaven.skip.test=true'
+				echo '开始编译代码...'
+                sh '/usr/local/maven/bin/mvn clean package -Dmaven.skip.test=true'
             }
         }
         stage('docker build') {
@@ -17,7 +19,10 @@ pipeline {
             }
         }
     }
-    post {
-        
+	 post {
+        always {
+            echo '清理工作区...'
+            cleanWs()
+        }
     }
 }
