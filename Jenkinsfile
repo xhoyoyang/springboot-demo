@@ -8,7 +8,7 @@ pipeline {
         }
         stage('mavne build') {
             steps {
-                sh label: '', script: 'mvn clean package -Dmaven.skip.test=true'
+                sh label: '', script: '/usr/local/maven/bin/mvn clean package -Dmaven.skip.test=true'
             }
         }
         stage('docker build') {
