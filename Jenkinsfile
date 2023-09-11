@@ -16,7 +16,6 @@ pipeline {
         stage('Build image') {
             steps {
                 echo '[INFO] 开始编译docker镜像...'
-                sh 'sudo docker stop auth'
                 sh 'sudo docker build -t watson/auth:0.0.1 .'
             }
         }
