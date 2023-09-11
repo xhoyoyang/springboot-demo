@@ -4,7 +4,7 @@ pipeline {
         stage('Git pull') {
             steps {
                 echo '[INFO] 开始拉取代码 ...'
-                sh 'git checkout $(branch) && git pull'
+                sh 'git checkout ${branch} && git pull'
             }
         }
         stage('Build project') {
