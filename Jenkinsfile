@@ -23,7 +23,6 @@ pipeline {
             steps {
                 echo '[INFO] 开始部署服务...'
                 sh 'sudo docker stop auth'
-                sh 'sudo docker rm auth'
                 sh 'sudo docker run -d --name auth -p 18080:8080 watson/auth:0.0.1'
             }
         }
